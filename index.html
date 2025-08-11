@@ -7,6 +7,16 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div style="text-align: right; margin: 10px;">
+    <label for="languageSelect" style="color: white; margin-right: 5px;">🌐 Change Language:</label>
+    <select id="languageSelect" class="language-switcher">
+      <option value="en">🌐 English</option>
+      <option value="hi">🌐 हिंदी</option>
+    </select>
+  </div>
+
+<!-- Hidden container required by Google Translate -->
+<div id="dummy_translate_container" style="display: none;"></div>
 
   <header class="navbar">
   <div class="logo">👟 LaceUp</div>
@@ -112,6 +122,36 @@
   </aside>
 
   <script src="script.js"></script>
+  <script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,hi',
+      autoDisplay: false
+    }, 'dummy_translate_container');
+  }
+
+  function changeLanguage(lang) {
+    const select = document.querySelector('.goog-te-combo');
+    if (select) {
+      select.value = lang;
+      select.dispatchEvent(new Event('change'));
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const customSelect = document.getElementById("languageSelect");
+    if (customSelect) {
+      customSelect.addEventListener("change", (e) => {
+        changeLanguage(e.target.value);
+      });
+    }
+  });
+</script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
+
 
