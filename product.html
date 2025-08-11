@@ -107,10 +107,10 @@
       // Fill product details
       document.getElementById('product-root').innerHTML = `
         <div class="gallery">
-          <img id="mainImg" class="main-image" src="${images[0]}" />
+          <img id="mainImg" class="main-image" src="${images[0]}" alt="${product.alt}" />
           <div class="thumbs">${images.map((img, i) =>
-            `<img src="${img}" class="${i === 0 ? 'active':''}" onclick="document.getElementById('mainImg').src='${img}';document.querySelectorAll('.thumbs img').forEach(x=>x.classList.remove('active'));this.classList.add('active');" />`
-          ).join('')}</div>
+          `<img src="${img}" alt="${product.alt}" class="${i === 0 ? 'active':''}" onclick="document.getElementById('mainImg').src='${img}';document.querySelectorAll('.thumbs img').forEach(x=>x.classList.remove('active'));this.classList.add('active');" />`
+        ).join('')}</div>
         </div>
         <div class="details">
           <div class="brand">${product.brand}</div>
