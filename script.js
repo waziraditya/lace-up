@@ -409,13 +409,16 @@ function renderSneakers(sneakers) {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      <img src="${sneaker.image}" alt="${sneaker.title}" loading="lazy" />
-      <div class="brand">${sneaker.brand}</div>
-      <h3>${sneaker.title}</h3>
-      <p class="price">₹${sneaker.price.toLocaleString()}</p>
-      <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin: 10px 0;">${sneaker.description}</p>
-      <button onclick="addToCart(${sneaker.id})">Add to Cart 🛒</button>
-    `;
+  <a href="product.html?id=${sneaker.id}" style="text-decoration:none; color:inherit;">
+    <img src="${sneaker.image}" alt="${sneaker.title}" loading="lazy" />
+    <div class="brand">${sneaker.brand}</div>
+    <h3>${sneaker.title}</h3>
+  </a>
+  <p class="price">₹${sneaker.price.toLocaleString()}</p>
+  <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin: 10px 0;">${sneaker.description}</p>
+  <button onclick="addToCart(${sneaker.id})">Add to Cart 🛒</button>
+`;
+
     container.appendChild(card);
     
     // Stagger animation
