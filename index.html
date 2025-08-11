@@ -22,7 +22,9 @@
     <select id="languageSelect" class="language-switcher">
       <option value="en">🌐 English</option>
       <option value="hi">🌐 हिंदी</option>
+      <option value="ml">🌐 മലയാളം</option>
     </select>
+
   </div>
 
 <!-- Hidden container required by Google Translate -->
@@ -132,7 +134,7 @@
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({
       pageLanguage: 'en',
-      includedLanguages: 'en,hi',
+      includedLanguages: 'en,hi,ml',
       autoDisplay: false
     }, 'dummy_translate_container');
   }
@@ -159,6 +161,7 @@
 
 </body>
 </html>
+
 
 
 
