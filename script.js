@@ -20,6 +20,7 @@ const sneakerData = [
     category: "basketball",
     tab: ["men"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684269/m9160c_a_107x1_hg6kyr.jpg",
+    alt: "Converse Chuck Taylor All Star high-top sneaker in black canvas with white rubber toe cap, flat laces, and signature ankle patch logo on the inner side",
     description: "Iconic canvas sneaker, timeless silhouette"
   },
   {
@@ -30,9 +31,10 @@ const sneakerData = [
     category: "basketball",
     tab: ["men"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684349/AIR_JORDAN_1_RETRO_HIGH_OG_pe6alf.jpg",
+    alt: "Air Jordan 1 Retro High OG basketball shoe in red, white, and black premium leather, featuring the Nike swoosh and padded ankle collar",
     description: "Classic basketball sneaker with premium leather construction"
   },
-   {
+  {
     id: 3,
     title: "Adidas Stan Smith",
     brand: "Adidas",
@@ -40,6 +42,7 @@ const sneakerData = [
     category: "tennis",
     tab: ["men"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684400/Stan_Smith_Shoes_White_M20324_01_standard_ohar1l.jpg",
+    alt: "White Adidas Stan Smith tennis sneaker with smooth leather upper, perforated three-stripe detailing, and green heel tab branding",
     description: "Clean leather tennis sneaker, iconic and versatile"
   },
   {
@@ -50,6 +53,7 @@ const sneakerData = [
     category: "casual",
     tab: ["men"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684458/Suede-Classic-XXI-Sneakers_djxlho.jpg",
+    alt: "Puma Suede Classic low-top sneaker in royal blue suede with contrasting white formstrip, flat laces, and textured off-white rubber sole",
     description: "Retro suede sneaker with sporty heritage"
   },
   {
@@ -60,6 +64,7 @@ const sneakerData = [
     category: "football",
     tab: ["men"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684493/Samba_XLG_Shoes_White_IE1377_01_standard_jt4a6p.jpg",
+    alt: "Adidas Samba low-top sneaker in white leather with light grey suede toe overlay, gum sole, and gold Samba branding",
     description: "Classic football court sneaker with gum sole"
   },
 
@@ -72,6 +77,7 @@ const sneakerData = [
     category: "casual",
     tab: ["women"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684534/shopping_qk5sfn.jpg",
+    alt: "Women's Adidas Samba sneaker in soft white leather with beige suede overlays, slim silhouette, and gum outsole",
     description: "Iconic look with casual comfort—women’s favorite"
   },
   {
@@ -82,6 +88,7 @@ const sneakerData = [
     category: "basketball",
     tab: ["women"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684655/custom-nike-air-force-1-low-by-you-shoes_wzsicf.jpg",
+    alt: "Custom Nike Air Force 1 low-top sneaker in crisp white leather with perforated toe box and thick rubber sole",
     description: "Legendary streetwear staple seen on celebs"
   },
   {
@@ -92,6 +99,7 @@ const sneakerData = [
     category: "casual",
     tab: ["women"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684716/MP000000024332099_437Wx649H_202411081629221_mnvqdz.jpg",
+    alt: "Women's Adidas Stan Smith sneaker in white leather with metallic gold heel tab, minimal perforated side stripes, and flat white laces",
     description: "Minimalist leather sneaker—smart and stylish"
   },
   {
@@ -102,6 +110,7 @@ const sneakerData = [
     category: "retro",
     tab: ["women"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684763/-original-imahfcb3j7j4qwcu_rzm1m2.jpg",
+    alt: "New Balance 9060 chunky retro running shoe in beige mesh with grey suede overlays, thick sculpted sole, and vintage styling",
     description: "Chunky retro runner, trend-forward design"
   },
   {
@@ -112,6 +121,7 @@ const sneakerData = [
     category: "sustainable",
     tab: ["women", "sustainable"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684819/-473Wx593H-469096404-white-MODEL_phurkm.jpg",
+    alt: "VEJA Campo white leather low-top sneaker with cream outsole and black V logo, crafted from sustainable materials",
     description: "Leather sneaker with eco-conscious ethos"
   },
 
@@ -124,6 +134,7 @@ const sneakerData = [
     category: "running",
     tab: ["kids"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684865/NIKE_COSMIC_RUNNER_28TD_29_ihnymd.jpg",
+    alt: "Nike Cosmic Runner kids' running shoe in black mesh with white midsole, Velcro strap, and pull tabs",
     description: "Running shoe built like adult gear for young kids"
   },
   {
@@ -134,6 +145,7 @@ const sneakerData = [
     category: "tennis",
     tab: ["kids"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684900/images_icwa4n.jpg",
+    alt: "Reebok Club C 85 kids' tennis shoe in white leather with green accents, perforated toe box, and low-profile sole",
     description: "Mini version of a subtle, tennis-inspired classic"
   },
   {
@@ -144,6 +156,7 @@ const sneakerData = [
     category: "casual",
     tab: ["kids"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684947/1754079549-ten-little-sneakers-688d20dd7455a.png_qd1jpn.png",
+    alt: "Ten Little Retro Suede kids' sneaker in tan suede with wide toe box, no-tie elastic laces, and white sole",
     description: "Retro ’80s look, wide toe, no-tie laces—kid-friendly"
   },
   {
@@ -154,6 +167,7 @@ const sneakerData = [
     category: "basketball",
     tab: ["kids"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684987/images_obrubi.jpg",
+    alt: "Youth-sized Converse Chuck Taylor All Star high-top sneaker in classic black canvas with white toe cap",
     description: "Youth-sized version of the universal staple"
   },
   {
@@ -164,6 +178,7 @@ const sneakerData = [
     category: "casual",
     tab: ["kids"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685024/17883492_38502844_600_rvxtzv.webp",
+    alt: "Kids' Adidas Superstar sneaker with iconic white leather upper, black stripes, and shell toe cap",
     description: "Classic shell-toe icon, mini version"
   },
 
@@ -176,6 +191,7 @@ const sneakerData = [
     category: "casual",
     tab: ["indian"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685044/images_jfxrzr.jpg",
+    alt: "Gully Labs Baaz white leather low-top sneaker with minimal stitching and clean silhouette",
     description: "Homegrown New Delhi sneaker, hand-lasted everyday"
   },
   {
@@ -186,6 +202,7 @@ const sneakerData = [
     category: "casual",
     tab: ["indian"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685072/images_prqtt9.jpg",
+    alt: "7-10 Bamboo Canvas eco-friendly sneaker in beige canvas with rubber outsole and casual low-top design",
     description: "Stylish, affordable canvas low-top from Indian brand"
   },
   {
@@ -196,6 +213,7 @@ const sneakerData = [
     category: "casual",
     tab: ["indian", "sustainable"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685098/Lateral_b2ceddb3-badb-425c-9234-ac37f2ebf907_ykocaj.jpg",
+    alt: "Comet Classic black and white low-top sneaker with durable rubber sole and urban streetwear styling",
     description: "Indian brand known for versatility and street-ready design"
   },
   {
@@ -206,6 +224,7 @@ const sneakerData = [
     category: "casual",
     tab: ["indian"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685134/ND-EBSneaker-PebbleGrey-_WebOptimized_b_oxginc.jpg",
+    alt: "Neeman's Everyday sneaker in pebble grey knit fabric with cushioned sole and eco-friendly build",
     description: "Eco-friendly Indian sneaker brand with comfort focus"
   },
   {
@@ -216,6 +235,7 @@ const sneakerData = [
     category: "casual",
     tab: ["indian", "sustainable"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685171/762x1100_dogo-unisex-kids-vegan-leather-white-sneakers-wb022-acek001-lifestyle-sneakers-dogo-ace-sneakers-kids-13635-24-B_b13yze.webp",
+    alt: "Doc Sneakers Vegan white low-top sneaker made from synthetic leather with minimalist design",
     description: "Indian vegan sneaker brand, ethically made"
   },
 
@@ -228,6 +248,7 @@ const sneakerData = [
     category: "casual",
     tab: ["sustainable"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685353/417iS_UW4SL._SY300__rifcbq.jpg",
+    alt: "Etiko Classic low-top sneaker in black organic cotton canvas with white sole and sustainable Fairtrade construction",
     description: "Sustainable sneaker made with organic cotton & Fairtrade"
   },
   {
@@ -238,6 +259,7 @@ const sneakerData = [
     category: "casual",
     tab: ["sustainable"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685388/images_oy3s2w.jpg",
+    alt: "ID.EIGHT Fruit Leather sneaker in beige and green tones, made from apple, grape, and pineapple by-products",
     description: "Made using food-waste by-products (apple, grape, pineapple)"
   },
   {
@@ -248,6 +270,7 @@ const sneakerData = [
     category: "casual",
     tab: ["sustainable"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685407/images_pzis59.jpg",
+    alt: "Black Tulip Classic Tennis white sneaker with green accents, eco-friendly leather, and timeless court design",
     description: "Boutique sustainable sneaker with timeless design"
   },
   {
@@ -258,8 +281,11 @@ const sneakerData = [
     category: "casual",
     tab: ["sustainable"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685433/images_gsu1cf.jpg",
+    alt: "Adidas Parley sneaker made with recycled ocean plastic, featuring woven blue and white upper with eco-friendly sole",
     description: "Made with recycled ocean plastic—eco-conscious collab"
   },
+
+  // Accessories
   {
     id: 25,
     title: "Premium Shoe Cleaner Kit",
@@ -268,6 +294,7 @@ const sneakerData = [
     category: "cleaning",
     tab: ["accessories"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685496/657fc1fcfa9ef71e3a4d2b48-crep-protect-shoe-cleaner-kit-cure_rftvxd.jpg",
+    alt: "Crep Protect Premium Shoe Cleaner Kit with brush, cleaning solution, and microfiber cloth",
     description: "Complete cleaning set to keep sneakers looking fresh"
   },
   {
@@ -278,6 +305,7 @@ const sneakerData = [
     category: "laces",
     tab: ["accessories"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685520/Pink-Jordan-1-Replacement-Shoelaces-by-Lace-Lab_600x_4e6010d1-b293-4e86-b1b3-92f7a771006a_takjou.jpg",
+    alt: "Bright pink replacement shoelaces coiled neatly, compatible with Jordan 1 sneakers",
     description: "Durable, stylish laces for a quick sneaker refresh"
   },
   {
@@ -288,6 +316,7 @@ const sneakerData = [
     category: "odor-control",
     tab: ["accessories"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685548/71hZoUg_zkL._UY1000__bnhyjj.jpg",
+    alt: "Pair of SneakerShield deodorizer balls in bright green, designed to absorb odors inside shoes",
     description: "Compact deodorizer balls to keep sneakers smelling clean"
   },
   {
@@ -298,6 +327,7 @@ const sneakerData = [
     category: "protection",
     tab: ["accessories"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685568/61cMugt1jdL_yzg28j.jpg",
+    alt: "Jason Markk Water & Stain Repellent spray bottle for protecting sneakers from spills and dirt",
     description: "Protects sneakers from spills, stains, and dirt"
   },
   {
@@ -308,8 +338,9 @@ const sneakerData = [
     category: "storage",
     tab: ["accessories"],
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754685649/715i0SUfGqL_djgwv5.jpg",
+    alt: "Transparent stackable DropFront sneaker display case with front-opening door for dust-free storage",
     description: "Transparent stackable case for dust-free sneaker storage"
-  },
+  }
 ];
 
 
