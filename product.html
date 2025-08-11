@@ -1,371 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Product — LaceUp</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* product page small overrides / layout */
-    .product-hero {
-      max-width: 1200px;
-      margin: 36px auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 36px;
-      align-items: start;
-    }
-
-    .gallery {
-      background: rgba(255,255,255,0.03);
-      padding: 18px;
-      border-radius: 14px;
-    }
-
-    .main-image {
-      width: 100%;
-      height: 420px;
-      border-radius: 12px;
-      object-fit: contain;
-      background: #fff;
-      padding: 18px;
-    }
-
-    .thumbs {
-      display:flex;
-      gap:10px;
-      margin-top:12px;
-      flex-wrap:wrap;
-    }
-    .thumbs img {
-      width:70px;
-      height:70px;
-      object-fit:cover;
-      border-radius:8px;
-      cursor:pointer;
-      border:2px solid transparent;
-    }
-    .thumbs img.active { border-color: #ff6b35; }
-
-    .details {
-      background: rgba(255,255,255,0.03);
-      padding: 22px;
-      border-radius: 14px;
-    }
-    .details h1 { font-size: 1.8rem; margin-bottom:8px; }
-    .brand { color: rgba(255,255,255,0.75); font-weight:700; margin-bottom:8px; }
-    .price { font-size:1.6rem; color: #ff6b35; font-weight:900; margin-bottom:10px; }
-    .rating { display:flex; gap:8px; align-items:center; color: #ffd166; margin-bottom:12px; }
-    .small { color: rgba(255,255,255,0.6); font-size:0.95rem; }
-
-    .selectors { display:flex; gap:16px; margin: 16px 0; flex-wrap:wrap; }
-    .selectors select, .selectors input[type="number"] {
-      padding:10px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color:#fff;
-    }
-
-    .actions { display:flex; gap:12px; margin-top:14px; align-items:center; }
-    .btn-primary {
-      background: linear-gradient(45deg,#ff6b35,#f7931e);
-      color:#000; padding:12px 18px; border-radius:10px; border:none; cursor:pointer; font-weight:800;
-    }
-    .btn-outline {
-      background: transparent; border: 2px solid rgba(255,255,255,0.08); color:#fff; padding:10px 14px; border-radius:10px; cursor:pointer;
-    }
-
-    .meta {
-      margin-top:16px; padding:12px 14px; background: rgba(0,0,0,0.35); border-radius:8px; color: rgba(255,255,255,0.85);
-    }
-
-    .section {
-      max-width:1200px; margin: 30px auto; padding: 18px; border-radius: 12px; background: rgba(255,255,255,0.02);
-    }
-
-    .reviews .review { padding:12px; border-bottom:1px solid rgba(255,255,255,0.03); }
-    .related { display:flex; gap:14px; overflow:auto; padding-bottom:6px; }
-
-    @media (max-width:900px) {
-      .product-hero { grid-template-columns: 1fr; padding: 18px; }
-      .main-image { height: 320px; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div style="text-align: right; margin: 10px;">
-  <label for="languageSelect" style="color: white; margin-right: 5px;">🌐 Change Language:</label>
-  <select id="languageSelect" class="language-switcher">
-    <option value="en">🌐 English</option>
-    <option value="hi">🌐 हिंदी</option>
-  </select>
-</div>
 
-<!-- Hidden container required by Google Translate -->
-<div id="dummy_translate_container" style="display: none;"></div>
-
-  <!-- simple nav so cart and back work -->
-  <header class="navbar" style="position:sticky; top:0; z-index:50;">
-    <div style="display:flex; align-items:center; gap:18px;">
-      <a href="index.html" style="color:white; text-decoration:none; font-weight:700;">⬅ Back to Shop</a>
-      <div style="color: #ff6b35; font-weight:900; margin-left:18px;">Product Details</div>
-    </div>
+  <div class="product-details">
+    <img id="product-image" src="" alt="">
     <div>
-      <span id="cart-count" style="background:#000; padding:6px 10px; border-radius:20px;">0</span>
+      <h1 id="product-title"></h1>
+      <p id="product-brand"></p>
+      <p id="product-price"></p>
+      <p id="product-description"></p>
+      <button id="add-to-cart">Add to Cart 🛒</button>
     </div>
-  </header>
-
-  <main>
-    <div id="product-root" class="product-hero">
-      <!-- left: gallery -->
-      <div class="gallery">
-        <img id="mainImg" class="main-image" src="" alt="product image" />
-        <div class="thumbs" id="thumbs"></div>
-      </div>
-
-      <!-- right: details -->
-      <div class="details" id="details">
-        <!-- JS will fill -->
-      </div>
-    </div>
-
-    <!-- description / reviews -->
-    <div class="section" id="descriptionSection">
-      <h3>Description</h3>
-      <p id="longDescription" class="small"></p>
-    </div>
-
-    <div class="section reviews" id="reviewsSection">
-      <h3>Customer Reviews</h3>
-      <div id="reviewsList"></div>
-    </div>
-
-    <div class="section related-section">
-      <h3>Related Products</h3>
-      <div class="related" id="relatedList"></div>
-    </div>
-  </main>
+  </div>
 
   <script src="script.js"></script>
   <script>
-    // Read product id
+    // Get product ID from URL
     const params = new URLSearchParams(window.location.search);
-    const id = parseInt(params.get('id'), 10);
+    const productId = parseInt(params.get("id"));
 
-    // find product from your sneakerData
-    const product = (typeof sneakerData !== 'undefined') ? sneakerData.find(s => s.id === id) : null;
+    // Find product in sneakerData
+    const product = sneakerData.find(p => p.id === productId);
 
-    // If not found: show friendly message
-    if (!product) {
-      document.getElementById('product-root').innerHTML = '<div style="padding:40px; color:#fff;">Product not found. <a href="index.html">Go back</a></div>';
+    if (product) {
+      document.getElementById("product-image").src = product.image;
+      document.getElementById("product-title").textContent = product.title;
+      document.getElementById("product-brand").textContent = "Brand: " + product.brand;
+      document.getElementById("product-price").textContent = "₹" + product.price.toLocaleString();
+      document.getElementById("product-description").textContent = product.description;
+
+      document.getElementById("add-to-cart").onclick = () => {
+        addToCart(product.id);
+      };
     } else {
-      // create image array (if extra images exist on the object use them, otherwise use same image variations)
-      const images = product.images || [product.image, product.image, product.image];
-
-      // Fill gallery main image + thumbs
-      const mainImg = document.getElementById('mainImg');
-      const thumbs = document.getElementById('thumbs');
-      mainImg.src = images[0];
-      thumbs.innerHTML = '';
-      images.forEach((imgSrc, i) => {
-        const t = document.createElement('img');
-        t.src = imgSrc;
-        if (i === 0) t.classList.add('active');
-        t.onclick = () => {
-          document.querySelectorAll('.thumbs img').forEach(x => x.classList.remove('active'));
-          t.classList.add('active');
-          mainImg.src = imgSrc;
-        };
-        thumbs.appendChild(t);
-      });
-
-      // Example made-up extra meta (if your product object includes these, they will be used)
-      const sizes = product.sizes || ["6","7","8","9","10","11"];
-      const colors = product.colors || ["White","Black","Grey"];
-      const rating = product.rating || 4.4;
-      const reviews = product.reviews || [
-        { name: "Aanya", stars:5, text:"Great fit & fast delivery!" },
-        { name: "Ravi", stars:4, text:"Comfortable but slightly narrow." }
-      ];
-
-      // Build detail HTML
-      const details = document.getElementById('details');
-      details.innerHTML = `
-        <div class="brand">${product.brand}</div>
-        <h1>${product.title}</h1>
-        <div class="rating">
-          <div>★ ${rating.toFixed(1)}</div>
-          <div class="small">• ${reviews.length} reviews</div>
-        </div>
-        <div class="price">₹${product.price.toLocaleString()}</div>
-
-        <div class="meta small">
-          ✅ Free delivery in 2–5 business days • Return within 15 days • 1 year limited warranty
-        </div>
-
-        <div style="margin-top:12px;">
-          <div class="small" style="margin-bottom:6px;">Select size</div>
-          <div class="selectors">
-            <select id="sizeSelect">${sizes.map(s => `<option value="${s}">${s}</option>`).join('')}</select>
-
-            <select id="colorSelect">${colors.map(c => `<option value="${c}">${c}</option>`).join('')}</select>
-
-            <input id="qty" type="number" min="1" value="1" style="width:82px;" />
-          </div>
-        </div>
-
-        <div class="actions">
-          <button id="addBtn" class="btn-primary">Add to Cart 🛒</button>
-          <button id="buyBtn" class="btn-outline">Buy Now</button>
-        </div>
-
-        <div style="margin-top:10px; font-size:0.95rem;" class="small">
-          <strong>Offers:</strong> Bank offer: 5% instant discount with XYZ card.
-        </div>
-      `;
-
-      // long description
-      document.getElementById('longDescription').innerText =
-        product.longDescription || (product.description + " — Premium materials, comfortable cushioning and modern silhouette. Ideal for daily wear, sports and street style.");
-
-      // reviews list
-      const reviewsList = document.getElementById('reviewsList');
-      reviewsList.innerHTML = reviews.map(r => `
-        <div class="review">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div><strong>${r.name}</strong> <span style="color:#ffd166">★ ${r.stars}</span></div>
-            <div class="small">Verified buyer</div>
-          </div>
-          <div style="margin-top:6px;">${r.text}</div>
-        </div>
-      `).join('');
-
-      // related products (pick up to 6 others from sneakerData)
-      const related = document.getElementById('relatedList');
-      const relatedItems = (typeof sneakerData !== 'undefined') ? sneakerData.filter(s => s.id !== product.id).slice(0,6) : [];
-      related.innerHTML = relatedItems.map(s => `
-        <a href="product.html?id=${s.id}" style="text-decoration:none; color:inherit; display:inline-block; width:160px;">
-          <div style="background:rgba(255,255,255,0.03); padding:10px; border-radius:10px;">
-            <img src="${s.image}" style="width:100%; height:100px; object-fit:cover; border-radius:8px;" />
-            <div style="margin-top:8px; font-weight:700; font-size:0.95rem;">${s.title.split(' ').slice(0,3).join(' ')}...</div>
-            <div style="color:#ff6b35; font-weight:900;">₹${s.price.toLocaleString()}</div>
-          </div>
-        </a>
-      `).join('');
-
-      // Add to cart behavior (uses same cart variables & saveCart from your script.js)
-      document.getElementById('addBtn').addEventListener('click', () => {
-        const size = document.getElementById('sizeSelect').value;
-        const color = document.getElementById('colorSelect').value;
-        const qty = Math.max(1, parseInt(document.getElementById('qty').value, 10) || 1);
-
-        const cartItem = {
-          id: product.id,
-          title: product.title,
-          brand: product.brand,
-          price: product.price,
-          size, color, qty,
-          image: images[0]
-        };
-
-        // 'cart' and 'saveCart' come from script.js loaded above
-        if (typeof cart === 'undefined') window.cart = JSON.parse(localStorage.getItem('sneakCart') || '[]');
-        cart.push(cartItem);
-        if (typeof saveCart === 'function') {
-          saveCart(); // this will set localStorage and rerender cart in index if present
-        } else {
-          localStorage.setItem('sneakCart', JSON.stringify(cart));
-          document.getElementById('cart-count').innerText = cart.length;
-        }
-
-        if (typeof showToast === 'function') showToast('Added to cart ✔', 1800);
-        else alert('Added to cart ✔');
-
-        // Try to open cart sidebar if present on page (index) by toggling element
-        const toggle = document.getElementById('cart-toggle');
-        if (toggle) toggle.click();
-      });
-
-      // Buy now: directly add the item and then go to cart page
-document.getElementById('buyBtn').addEventListener('click', () => {
-  const buyBtn = document.getElementById('buyBtn');
-  // disable button to prevent double clicks
-  buyBtn.disabled = true;
-  buyBtn.textContent = 'Processing...';
-
-  // read selected options
-  const size = document.getElementById('sizeSelect').value;
-  const color = document.getElementById('colorSelect').value;
-  const qty = Math.max(1, parseInt(document.getElementById('qty').value, 10) || 1);
-
-  // build cart item
-  const cartItem = {
-    id: product.id,
-    title: product.title,
-    brand: product.brand,
-    price: product.price,
-    size,
-    color,
-    qty,
-    image: (product.images || [product.image])[0]
-  };
-
-  // ensure cart exists and push new item
-  window.cart = JSON.parse(localStorage.getItem('sneakCart') || '[]');
-  cart.push(cartItem);
-
-  // save using your existing saveCart if available, otherwise fallback
-  if (typeof saveCart === 'function') {
-    saveCart(); // will update localStorage and UI
-  } else {
-    localStorage.setItem('sneakCart', JSON.stringify(cart));
-    // update cart count in header if element exists
-    const countEl = document.getElementById('cart-count');
-    if (countEl) countEl.innerText = cart.length;
-  }
-
-  // show confirmation toast if available
-  if (typeof showToast === 'function') showToast('Added to cart — Redirecting to cart...', 1200);
-  else console.log('Added to cart');
-
-  // small timeout so user sees the toast, then redirect to cart
-  setTimeout(() => {
-    window.location.href = 'cart.html';
-  }, 550);
-});
-
-
-      // update cart-count in header if saveCart already populated it
-      const currentCart = JSON.parse(localStorage.getItem('sneakCart') || '[]');
-      document.getElementById('cart-count').innerText = currentCart.length;
+      document.body.innerHTML = "<h2>Product not found!</h2>";
     }
   </script>
-  <script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      includedLanguages: 'en,hi',
-      autoDisplay: false
-    }, 'dummy_translate_container');
-  }
-
-  function changeLanguage(lang) {
-    const select = document.querySelector('.goog-te-combo');
-    if (select) {
-      select.value = lang;
-      select.dispatchEvent(new Event('change'));
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const customSelect = document.getElementById("languageSelect");
-    if (customSelect) {
-      customSelect.addEventListener("change", (e) => {
-        changeLanguage(e.target.value);
-      });
-    }
-  });
-</script>
-
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 </body>
 </html>
-
