@@ -11,6 +11,24 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
+.footer-section h4.find-us-h4 {
+  margin-top: 10px;
+  color: white;       /* same as Instagram text color */
+  font-size: 16px;    /* match Instagram font size */
+  font-weight: bold;  /* match Instagram font weight */
+}
+
+.footer-section h4.find-us-h4 a {
+  color: white;              /* link text color white */
+  text-decoration: none;     /* no underline */
+}
+
+.footer-section h4.find-us-h4 a:hover {
+  text-decoration: underline; /* optional hover effect */
+}
+
+/* Keep the iframe styling the same, no changes needed here */
+
 
 /* Navbar */
 .navbar {
