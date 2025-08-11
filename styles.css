@@ -1850,3 +1850,225 @@ body {
   top: 0px !important;
   position: relative;
 }
+
+
+
+/* ===========================
+   LACEUP OVERRIDES - Styling updates for:
+   - 4 product-cards in a row on desktop
+   - unified Add-to-Cart button style
+   - refined navbar polish
+   - professional footer (dark + orange accents)
+   Note: These are appended as overrides to avoid editing the original blocks.
+   =========================== */
+
+ /* Product grid: force 4 columns on wide screens, responsive fallbacks */
+.cards {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 24px !important;
+  padding: 40px 0 !important;
+  align-items: start;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1200px) {
+  .cards { grid-template-columns: repeat(3, 1fr) !important; }
+}
+@media (max-width: 900px) {
+  .cards { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 600px) {
+  .cards { grid-template-columns: 1fr !important; padding: 24px 12px !important; }
+}
+
+/* Card visual refresh */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)) !important;
+  border-radius: 14px !important;
+  padding: 18px !important;
+  border: 1px solid rgba(255,255,255,0.03) !important;
+  backdrop-filter: blur(6px) !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+  overflow: hidden;
+}
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  display:block;
+}
+.card:hover { transform: translateY(-6px) !important; box-shadow: 0 18px 40px rgba(0,0,0,0.65), 0 6px 18px rgba(255,107,53,0.06) !important; }
+
+.card h3 { margin-top: 10px; font-size: 1.02rem; color: #ffffff; }
+.card .brand { font-weight: 700; color: rgba(255,255,255,0.85); font-size: 0.85rem; }
+.card .price { font-weight: 900; font-size: 1.05rem; color: #ffb78a; }
+
+/* Card actions layout */
+.card .card-actions { display:flex; gap:12px; align-items:center; justify-content: space-between; margin-top:10px; }
+
+/* Unified Add-to-Cart / Primary button styles */
+.card-add-btn,
+.btn-primary,
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(90deg, #ff6b35, #ff8a3d);
+  color: #0b0b0b;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(255,107,53,0.12);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+}
+.card-add-btn:hover,
+.btn-primary:hover,
+.btn-add:hover { transform: translateY(-3px); box-shadow: 0 16px 28px rgba(255,107,53,0.18); }
+.card-add-btn:active,
+.btn-primary:active { transform: translateY(0); opacity: 0.96; }
+
+/* Make sure card actions align on small screens */
+@media (max-width: 480px) {
+  .card .card-actions { flex-direction: column; align-items: stretch; }
+  .card img { height: 180px; }
+}
+
+/* Navbar polish */
+.navbar {
+  background: rgba(8,8,8,0.65) !important;
+  backdrop-filter: blur(6px);
+  padding: 12px 28px !important;
+  border-bottom: 1px solid rgba(255,255,255,0.03) !important;
+  transition: all 0.28s ease !important;
+}
+.nav-menu a {
+  padding: 10px 14px !important;
+  border-radius: 22px !important;
+}
+.nav-menu a::before { opacity: 0 !important; } /* remove full background fill, keep hover color change */
+.nav-menu a:hover,
+.nav-menu a.active { color: #ff6b35 !important; transform: translateY(-2px) !important; text-shadow: none !important; }
+
+/* Cart icon */
+.cart-icon { padding: 10px 14px !important; border-radius: 22px !important; background: linear-gradient(90deg,#ff6b35,#ff8a3d); color: #000 !important; }
+
+/* Footer — dark, professional with orange accents */
+.footer {
+  background: linear-gradient(180deg, #070707 0%, #0f0f0f 100%) !important;
+  color: #d6d6d6 !important;
+  padding: 48px 28px !important;
+  border-top: 3px solid rgba(255,107,53,0.06) !important;
+  margin-top: 60px;
+}
+.footer-content {
+  display: flex;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.footer-section { flex: 1 1 260px; min-width: 200px; }
+.footer-section h3, .footer-section h4 { color: #fff; margin-bottom: 12px; font-weight: 800; }
+.footer-section p, .footer-section a { color: #bfbfbf; font-weight: 600; text-decoration: none; margin: 6px 0; display:block; }
+.footer-newsletter { display:flex; gap:8px; margin-top:10px; }
+.footer-newsletter input { flex:1; padding:10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); background: transparent; color: #eee; }
+.footer-newsletter button { padding:10px 14px; border-radius: 10px; border:none; background: linear-gradient(90deg,#ff6b35,#ff8a3d); color:#000; font-weight:800; cursor:pointer; }
+.footer-bottom { text-align:center; margin-top:20px; padding-top:16px; color:#9a9a9a; font-weight:700; border-top: 1px solid rgba(255,255,255,0.03); }
+
+/* Small utility */
+.text-muted { color: rgba(255,255,255,0.6); font-weight:600; }
+
+/* ===========================
+   End of overrides
+   =========================== */
+
+
+
+/* ==== Additional overrides v2: center Add-to-Cart labels, subtle border + hover glow, product title left-align ==== */
+
+/* Ensure the Add-to-Cart button content is centered inside the button */
+.card-add-btn, .btn-primary, .btn-add {
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+/* Center the action area inside cards so Add-to-Cart sits centered */
+.card .card-actions { justify-content: center !important; }
+
+/* Make cards more distinguishable from background */
+.card {
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease !important;
+}
+
+/* Add a subtle colored glow and stronger lift on hover */
+.card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow:
+    0 30px 70px rgba(0,0,0,0.65),
+    0 6px 30px rgba(255,107,53,0.08),
+    0 0 26px rgba(255,107,53,0.045);
+  border-color: rgba(255,107,53,0.10) !important;
+}
+
+/* Product title alignment (for individual product detail page) */
+h1.product-title, .product-title { text-align: left !important; margin-left: 0 !important; }
+
+
+
+/* ==== LACEUP OVERRIDES v3: very-evident card hover glow + faster hover transition ====
+   Applied AFTER previous overrides to ensure the product card glow is pronounced,
+   fast, and visually distinct from the background. Glow is applied to the card,
+   not to the Add-to-Cart button. =================================================== */
+
+.card {
+  /* make transitions fast and snappy */
+  transition: transform 0.12s cubic-bezier(.2,.9,.3,1) !important;
+  transition-property: transform, box-shadow, border-color, filter !important;
+  transition-duration: 0.12s !important;
+  transition-timing-function: cubic-bezier(.2,.9,.3,1) !important;
+  will-change: transform, box-shadow, filter !important;
+  z-index: 0;
+}
+
+/* Strong, obvious glow on hover — entire card lights up with warm orange hue and lift */
+.card:hover {
+  transform: translateY(-12px) !important;
+  /* layered shadows: deep base shadow + colored outer glow + larger soft halo */
+  box-shadow:
+    0 50px 120px rgba(0,0,0,0.75),
+    0 0 40px rgba(255,107,53,0.18),
+    0 0 100px rgba(255,145,80,0.18);
+  border-color: rgba(255,107,53,0.28) !important;
+  filter: drop-shadow(0 12px 60px rgba(255,107,53,0.12));
+  outline: 1px solid rgba(255,107,53,0.06);
+}
+
+/* Stronger visual separation even when not hovered (subtle) */
+.card {
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01)) !important;
+}
+
+/* Ensure the button keeps a subtle presence but DOES NOT glow or get an orange halo itself */
+.card-add-btn, .btn-primary, .btn-add {
+  /* keep original compact button shadow but avoid color glow on hover */
+  box-shadow: 0 6px 14px rgba(0,0,0,0.16);
+}
+.card-add-btn:hover, .btn-primary:hover, .btn-add:hover {
+  transform: translateY(-2px) !important;
+  /* no warm colored outer glow on the button itself */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.18) !important;
+  opacity: 0.99;
+}
+
+/* Make sure the card hover remains distinct on dark/black backgrounds across pages */
+@media (prefers-reduced-motion: reduce) {
+  .card, .card:hover { transition: none !important; transform: none !important; }
+}
