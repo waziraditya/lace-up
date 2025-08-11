@@ -431,14 +431,16 @@ function renderSneakers(sneakers) {
     card.className = "card";
     card.innerHTML = `
       <a href="product.html?id=${sneaker.id}" style="text-decoration:none; color:inherit;">
-        <img src="${sneaker.image}" alt="${escapeHtml(sneaker.title)}" loading="lazy" />
+        <img src="${sneaker.image}" alt="${escapeHtml(sneaker.alt)}" loading="lazy" />
         <div class="brand">${escapeHtml(sneaker.brand)}</div>
         <h3>${escapeHtml(sneaker.title)}</h3>
+        <div style="font-size:0.95rem; color:#bbb; margin-bottom:4px;">${escapeHtml(sneaker.alt)}</div>
       </a>
       <p class="price">₹${Number(sneaker.price).toLocaleString()}</p>
       <p style="color: rgba(255,255,255,0.7); font-size:0.9rem; margin:10px 0;">${escapeHtml(sneaker.description || '')}</p>
       <button class="card-add-btn" data-id="${sneaker.id}">Add to Cart 🛒</button>
     `;
+// ...existing code...
     container.appendChild(card);
 
     // stagger animation (if CSS uses .show)
