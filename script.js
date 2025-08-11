@@ -476,24 +476,24 @@ function renderSneakers(sneakers) {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-  <a href="product.html?id=${sneaker.id}" style="text-decoration: none; color: inherit;">
-    <img src="${sneaker.image}" alt="${sneaker.title}" loading="lazy" />
-    <div class="brand">${sneaker.brand}</div>
-    <h3>${sneaker.title}</h3>
-  </a>
-  <p class="price">₹${sneaker.price.toLocaleString()}</p>
-  <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin: 10px 0;">${sneaker.description}</p>
-  <button onclick="addToCart(${sneaker.id})">Add to Cart 🛒</button>
-`;
-
+      <a href="product.html?id=${sneaker.id}" style="text-decoration: none; color: inherit;">
+        <img src="${sneaker.image}" alt="${sneaker.title}" loading="lazy" />
+        <div class="brand">${sneaker.brand}</div>
+        <h3>${sneaker.title}</h3>
+      </a>
+      <p class="price">₹${sneaker.price.toLocaleString()}</p>
+      <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin: 10px 0;">${sneaker.description}</p>
+      <button onclick="addToCart(event, ${sneaker.id})" class="card-add-btn">Add to Cart 🛒</button>
+    `;
     container.appendChild(card);
-    
+
     // Stagger animation
     setTimeout(() => {
       card.classList.add('show');
     }, index * 100);
   });
 }
+
 
 // Improved addToCart with visible button feedback (used by index cards)
 // Usage in card HTML: onclick="addToCart(event, 3)"
@@ -542,6 +542,121 @@ function addToCart(sneakerId) {
     // fallback little floating bubble close to the button
     showInlineBubble(btn || document.body, `Added ${sneaker.title}`);
   }
+
+// ---------- universal addToCart (cards + product page) ----------
+/**
+ * addToCart(e, sneakerId, options)
+ * e: DOM event (or null)
+ * sneakerId: product id
+ * options: optional { size, color, qty }
+ */
+function addToCart(e, sneakerId, options = {}) {
+  // button element (if clicked directly)
+  const btn = (e && e.currentTarget) ? e.currentTarget : (e && e.target) ? e.target.closest('button') : null;
+
+  // choose data source
+  const source = (typeof allSneakers !== 'undefined' && allSneakers.length) ? allSneakers : sneakerData;
+  const sneaker = source.find(s => s.id === sneakerId);
+  if (!sneaker) {
+    console.warn('addToCart: sneaker not found', sneakerId);
+    return;
+  }
+
+  // read latest cart
+  window.cart = JSON.parse(localStorage.getItem('sneakCart') || '[]');
+
+  // normalize options
+  const size = options.size ?? null;
+  const color = options.color ?? null;
+  const qty = options.qty && Number.isFinite(options.qty) ? Math.max(1, parseInt(options.qty, 10)) : 1;
+
+  // find existing (same id + size + color)
+  const existingIndex = cart.findIndex(item =>
+    item.id === sneakerId &&
+    (item.size ?? null) === size &&
+    (item.color ?? null) === color
+  );
+
+  if (existingIndex > -1) {
+    cart[existingIndex].qty = (cart[existingIndex].qty || 1) + qty;
+  } else {
+    cart.push({
+      id: sneaker.id,
+      title: sneaker.title,
+      brand: sneaker.brand,
+      price: sneaker.price,
+      size: size,
+      color: color,
+      qty: qty,
+      image: (sneaker.images && sneaker.images[0]) || sneaker.image
+    });
+  }
+
+  // Save & update UI
+  if (typeof saveCart === 'function') {
+    saveCart();
+  } else {
+    localStorage.setItem('sneakCart', JSON.stringify(cart));
+    updateCartCount();
+    if (typeof renderCart === 'function') renderCart();
+  }
+
+  // Visual feedback on the clicked button
+  if (btn) {
+    btn.disabled = true;
+    btn.dataset.origText = btn.textContent;
+    btn.textContent = 'Added ✓';
+    btn.style.transform = 'scale(0.98)';
+    btn.style.background = 'linear-gradient(45deg,#51cf66,#40c057)';
+    btn.style.color = '#000';
+  }
+
+  // show toast or inline bubble
+  if (typeof showToast === 'function') {
+    showToast(`Added ${sneaker.title} to cart ✔`, 1400);
+  } else {
+    showInlineBubble(btn || document.body, `Added ${sneaker.title} ✔`);
+  }
+
+  // revert button after short delay
+  setTimeout(() => {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = btn.dataset.origText || 'Add to Cart 🛒';
+      btn.style.transform = '';
+      btn.style.background = '';
+      btn.style.color = '';
+    }
+  }, 1400);
+}
+
+// fallback inline bubble helper (used when showToast not present)
+function showInlineBubble(targetEl, message) {
+  const bubble = document.createElement('div');
+  bubble.className = 'inline-bubble';
+  bubble.textContent = message;
+  document.body.appendChild(bubble);
+
+  if (targetEl && typeof targetEl.getBoundingClientRect === 'function') {
+    const rect = targetEl.getBoundingClientRect();
+    bubble.style.position = 'fixed';
+    bubble.style.left = Math.min(window.innerWidth - 260, rect.left + rect.width / 2) + 'px';
+    bubble.style.top = Math.max(20, rect.top - 44) + 'px';
+    bubble.style.transform = 'translateX(-50%)';
+  } else {
+    bubble.style.position = 'fixed';
+    bubble.style.right = '24px';
+    bubble.style.top = '80px';
+  }
+
+  bubble.style.opacity = '0';
+  setTimeout(() => bubble.style.opacity = '1', 20);
+  setTimeout(() => {
+    bubble.style.opacity = '0';
+    setTimeout(() => { if (bubble.parentNode) bubble.remove(); }, 300);
+  }, 1500);
+}
+
 
   // revert button after 1.5s so user can click again
   setTimeout(() => {
