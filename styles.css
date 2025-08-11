@@ -1820,5 +1820,166 @@ body {
       padding: 40px 0;
       color: rgba(255,255,255,0.7);
     }
-      
+    /* ===========================
+   FULL RESPONSIVE FIXES
+   =========================== */
+
+/* Large Tablets & Small Laptops */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+
+  .slide-text {
+    font-size: 2.5rem;
+    max-width: 80%;
+  }
+
+  .footer-content {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  /* Navbar adjustments */
+  .navbar {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .nav-menu {
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+  .nav-right {
+    gap: 10px;
+  }
+
+  /* Slideshow adjustments */
+  .slide-text {
+    font-size: 2rem;
+    left: 20px;
+    max-width: 85%;
+  }
+  .slide-nav {
+    padding: 14px 18px;
+    font-size: 20px;
+  }
+
+  /* Cards */
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  .card img {
+    height: auto;
+  }
+
+  /* Cart sidebar */
+  #cart-sidebar {
+    width: 100%;
+    right: -100%;
+  }
+
+  /* Footer */
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+  /* Navbar compact */
+  .navbar {
+    flex-direction: column;
+    padding: 10px 15px;
+    gap: 10px;
+  }
+  .nav-menu {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .nav-menu a {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  .nav-right {
+    gap: 8px;
+  }
+  .cart-icon {
+    padding: 8px 12px;
+  }
+
+  /* Slideshow arrows smaller */
+  .slide-nav {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+  .slide-prev { left: 10px; }
+  .slide-next { right: 10px; }
+  .slide-text {
+    font-size: 1.5rem;
+    left: 15px;
+    max-width: 90%;
+  }
+
+  /* Cards single column */
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .card img {
+    height: auto;
+  }
+
+  /* Profile page */
+  .avatar-circle {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  .profile-stats {
+    justify-content: center;
+  }
+
+  /* Auth form compact */
+  .auth-form {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  /* Footer stacked */
+  .footer-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  /* Mobile overflow fixes */
+  iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  h1, h2, h3, h4, h5, h6, p, a, span, div {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}
+
   
