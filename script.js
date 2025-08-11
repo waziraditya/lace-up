@@ -315,6 +315,66 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartCount();
   renderCart();
   showToast('Welcome to LaceUp! 👟', 3000);
+  if (document.getElementById('cart-items-list')) {
+  renderCartPage();
+}
+
+  function renderCartPage() {
+  const listContainer = document.getElementById('cart-items-list');
+  if (!listContainer) return; // not on cart page
+
+  const emptyState = document.getElementById('empty-cart');
+  const subtotalElem = document.getElementById('cart-subtotal');
+  const itemCountElem = document.getElementById('item-count');
+
+  listContainer.innerHTML = '';
+
+  if (cart.length === 0) {
+    if (emptyState) emptyState.style.display = 'block';
+    const summary = document.getElementById('cart-summary');
+    if (summary) summary.style.display = 'none';
+    if (subtotalElem) subtotalElem.textContent = '0';
+    if (itemCountElem) itemCountElem.textContent = '0';
+    return;
+  } else {
+    if (emptyState) emptyState.style.display = 'none';
+    const summary = document.getElementById('cart-summary');
+    if (summary) summary.style.display = 'block';
+  }
+
+  let subtotal = 0;
+  cart.forEach((item, index) => {
+    subtotal += item.price;
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.style.marginBottom = '15px';
+    div.innerHTML = `
+      <div style="display:flex; gap:15px; align-items:center;">
+        <img src="${item.image}" alt="${item.title}" style="width:100px; height:100px; object-fit:cover; border-radius:10px;">
+        <div style="flex:1;">
+          <h4 style="margin:0 0 4px 0; color:#fff;">${item.title}</h4>
+          <p style="margin:0 0 6px 0; color:rgba(255,255,255,0.6)">${item.brand}</p>
+          <p style="margin:0 0 8px 0; color:#ff6b35; font-weight:700;">₹${item.price.toLocaleString()}</p>
+          <button class="remove-btn" data-index="${index}" style="padding:8px 12px; background:linear-gradient(45deg,#ff4757,#ff3742); color:#fff; border:none; border-radius:20px; cursor:pointer; font-size:0.85rem;">Remove</button>
+        </div>
+      </div>
+    `;
+    listContainer.appendChild(div);
+  });
+
+  if (subtotalElem) subtotalElem.textContent = subtotal.toLocaleString();
+  if (itemCountElem) itemCountElem.textContent = cart.length;
+
+  // attach event listeners to remove buttons
+  document.querySelectorAll('#cart-items-list .remove-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const idx = Number(e.currentTarget.dataset.index);
+      removeFromCart(idx);         // existing function
+      // re-render page after change
+      renderCartPage();
+    });
+  });
+}
 
   
   // Load sneakers with animation
@@ -336,6 +396,7 @@ function saveCart() {
   localStorage.setItem("sneakCart", JSON.stringify(cart));
   updateCartCount();
   renderCart();
+  if (typeof renderCartPage === 'function') renderCartPage();
 }
 
 function renderCart() {
@@ -368,27 +429,6 @@ function removeFromCart(index) {
   showToast(`Removed ${removedItem.title} from cart`, 2000);
 }
 
-// Cart toggle
-document.getElementById('cart-toggle').onclick = () => {
-  document.getElementById('cart-sidebar').classList.add('open');
-  document.body.classList.add('cart-open');
-};
-
-document.getElementById('close-cart').onclick = () => {
-  document.getElementById('cart-sidebar').classList.remove('open');
-  document.body.classList.remove('cart-open');
-};
-
-// Close cart when clicking outside
-document.addEventListener('click', (e) => {
-  const cartSidebar = document.getElementById('cart-sidebar');
-  const cartToggle = document.getElementById('cart-toggle');
-  
-  if (!cartSidebar.contains(e.target) && !cartToggle.contains(e.target)) {
-    cartSidebar.classList.remove('open');
-    document.body.classList.remove('cart-open');
-  }
-});
 
 // Render sneakers with animations
 function renderSneakers(sneakers) {
@@ -409,17 +449,15 @@ function renderSneakers(sneakers) {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-  card.innerHTML = `
-      <a href="product.html?id=${sneaker.id}">
-       <img src="${sneaker.image}" alt="${sneaker.title}" loading="lazy" />
-       <div class="brand">${sneaker.brand}</div>
-       <h3>${sneaker.title}</h3>
-      </a>
-      <p class="price">₹${sneaker.price.toLocaleString()}</p>
-      <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin: 10px 0;">${sneaker.description}</p>
-      <button onclick="addToCart(${sneaker.id})">Add to Cart 🛒</button>
+  <a href="product.html?id=${sneaker.id}" style="text-decoration: none; color: inherit;">
+    <img src="${sneaker.image}" alt="${sneaker.title}" loading="lazy" />
+    <div class="brand">${sneaker.brand}</div>
+    <h3>${sneaker.title}</h3>
+  </a>
+  <p class="price">₹${sneaker.price.toLocaleString()}</p>
+  <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin: 10px 0;">${sneaker.description}</p>
+  <button onclick="addToCart(${sneaker.id})">Add to Cart 🛒</button>
 `;
-
 
     container.appendChild(card);
     
@@ -430,28 +468,85 @@ function renderSneakers(sneakers) {
   });
 }
 
-// Add to cart with animation
-function addToCart(sneakerId) {
+// Improved addToCart with visible button feedback (used by index cards)
+// Usage in card HTML: onclick="addToCart(event, 3)"
+function addToCart(e, sneakerId) {
+  // determine the button element that was clicked
+  const btn = (e && e.currentTarget) ? e.currentTarget : (e && e.target) ? e.target : null;
+
+  // find sneaker data
   const sneaker = allSneakers.find(s => s.id === sneakerId);
-  if (sneaker) {
-    cart.push(sneaker);
-    saveCart();
-    showToast(`Added ${sneaker.title} to cart! 🔥`, 2000);
-    
-    // Button animation
-    const button = event.target;
-    const originalText = button.textContent;
-    button.style.transform = 'scale(0.95)';
-    button.textContent = 'Added! ✓';
-    button.style.background = 'linear-gradient(45deg, #51cf66, #40c057)';
-    
-    setTimeout(() => {
-      button.style.transform = 'scale(1)';
-      button.textContent = originalText;
-      button.style.background = 'linear-gradient(45deg, #ff6b35, #f7931e)';
-    }, 1500);
+  if (!sneaker) return;
+
+  // visual feedback: disable button, change text + style
+  if (btn) {
+    btn.disabled = true;
+    btn.dataset.origText = btn.textContent;
+    btn.textContent = 'Added ✓';
+    btn.style.transform = 'scale(0.98)';
+    btn.style.background = 'linear-gradient(45deg, #51cf66, #40c057)';
+    btn.style.color = '#000';
   }
+
+  // add item to cart
+  cart.push({
+    id: sneaker.id,
+    title: sneaker.title,
+    brand: sneaker.brand,
+    price: sneaker.price,
+    qty: 1,
+    image: sneaker.image
+  });
+
+  // save & update UI
+  saveCart();
+
+  // show a toast near the top-right (or use existing showToast)
+  if (typeof showToast === 'function') {
+    showToast(`Added ${sneaker.title} to cart ✔`, 1800);
+  } else {
+    // fallback little floating bubble close to the button
+    showInlineBubble(btn || document.body, `Added ${sneaker.title}`);
+  }
+
+  // revert button after 1.5s so user can click again
+  setTimeout(() => {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = btn.dataset.origText || 'Add to Cart 🛒';
+      btn.style.transform = '';
+      btn.style.background = '';
+      btn.style.color = '';
+    }
+  }, 1500);
 }
+
+// helper to show a small floating confirmation near an element (fallback)
+function showInlineBubble(targetEl, message) {
+  const bubble = document.createElement('div');
+  bubble.className = 'inline-bubble';
+  bubble.textContent = message;
+  document.body.appendChild(bubble);
+
+  // position: near the target element center (best-effort)
+  if (targetEl && targetEl.getBoundingClientRect) {
+    const rect = targetEl.getBoundingClientRect();
+    bubble.style.position = 'fixed';
+    bubble.style.left = Math.min(window.innerWidth - 260, rect.left + rect.width / 2) + 'px';
+    bubble.style.top = Math.max(20, rect.top - 40) + 'px';
+  } else {
+    bubble.style.right = '24px';
+    bubble.style.top = '80px';
+  }
+
+  bubble.style.opacity = 0;
+  setTimeout(() => bubble.style.opacity = 1, 20);
+  setTimeout(() => {
+    bubble.style.opacity = 0;
+    setTimeout(() => bubble.remove(), 300);
+  }, 1600);
+}
+
 
 // Slideshow functionality
 let currentSlide = 0;
