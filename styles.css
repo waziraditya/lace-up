@@ -972,7 +972,6 @@ body {
     gap: 10px;
   }
 }
-}
 
 .cart-footer {
   margin-top: auto;
@@ -1385,6 +1384,7 @@ body {
       .container {
         padding: 24px 2vw;
       }
+    }
 .demo-info {
       margin-top: 20px;
       padding: 10px;
@@ -1542,6 +1542,7 @@ body {
             .faq-answer {
                 padding: 15px;
             }
+          }
 .product-hero {
       max-width: 1200px;
       margin: 36px auto;
@@ -1745,7 +1746,7 @@ body {
       .checkout-container {
         grid-template-columns: 1fr;
       }
-
+    }
 .cart-page {
       display: flex;
       gap: 2rem;
@@ -1820,3 +1821,4 @@ body {
       color: rgba(255,255,255,0.7);
     }
       
+  
