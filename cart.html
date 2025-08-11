@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart - LaceUp</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Cart page specific tweaks */
+    .cart-page {
+      display: flex;
+      gap: 2rem;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+    .cart-items {
+      flex: 2;
+      min-width: 300px;
+    }
+    .cart-item {
+      display: flex;
+      gap: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 15px 0;
+      align-items: flex-start;
+    }
+    .cart-item img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .cart-item-details {
+      flex: 1;
+    }
+    .cart-item-details h4 {
+      margin: 0 0 5px;
+    }
+    .cart-item-details p {
+      margin: 3px 0;
+      color: rgba(255,255,255,0.7);
+    }
+    .cart-item-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .cart-summary {
+      flex: 1;
+      min-width: 260px;
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 10px;
+      height: fit-content;
+    }
+    .cart-summary h3 {
+      margin-bottom: 15px;
+    }
+    .remove-btn {
+      background: #ff4d4d;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .checkout-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(45deg, #ff6b35, #f7931e);
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .empty-cart {
+      text-align: center;
+      padding: 40px 0;
+      color: rgba(255,255,255,0.7);
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo" onclick="window.location.href='index.html'">👟 LaceUp</div>
+    <nav class="nav-menu">
+      <a href="index.html">Home</a>
+    </nav>
+    <div class="nav-right">
+      <a href="profile.html" id="profile-link">Profile</a>
+      <a href="login.html" id="login-link">Login</a>
+      <a href="signup.html" id="signup-link">Signup</a>
+      <a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
+    </div>
+  </header>
+
+  <section class="cart-page">
+    <div class="cart-items" id="cart-items-list">
+      <!-- Items injected by JS -->
+    </div>
+    <aside class="cart-summary" id="cart-summary" style="display:none;">
+      <h3>Order Summary</h3>
+      <p>Subtotal (<span id="item-count">0</span> items): <strong>₹<span id="cart-subtotal">0</span></strong></p>
+      <button class="checkout-btn">Proceed to Checkout</button>
+    </aside>
+  </section>
+
+  <div class="empty-cart" id="empty-cart" style="display:none;">
+    <h2>Your cart is empty</h2>
+    <p>Looks like you haven’t added anything yet.</p>
+    <button onclick="window.location.href='index.html'" class="checkout-btn" style="max-width:200px;">Shop Now</button>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom">&copy; 2025 LaceUp. All rights reserved.</div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function renderCartPage() {
+      const cartData = JSON.parse(localStorage.getItem('sneakCart')) || [];
+      const listContainer = document.getElementById('cart-items-list');
+      const emptyState = document.getElementById('empty-cart');
+      const summary = document.getElementById('cart-summary');
+      const subtotalElem = document.getElementById('cart-subtotal');
+      const itemCountElem = document.getElementById('item-count');
+
+      listContainer.innerHTML = '';
+
+      if (cartData.length === 0) {
+        emptyState.style.display = 'block';
+        summary.style.display = 'none';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      summary.style.display = 'block';
+
+      let subtotal = 0;
+
+      cartData.forEach((item, index) => {
+        subtotal += item.price;
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.title}">
+          <div class="cart-item-details">
+            <h4>${item.title}</h4>
+            <p>${item.brand}</p>
+            <p><strong>₹${item.price.toLocaleString()}</strong></p>
+            <div class="cart-item-actions">
+              <button class="remove-btn" data-index="${index}">Remove</button>
+            </div>
+          </div>
+        `;
+        listContainer.appendChild(div);
+      });
+
+      subtotalElem.textContent = subtotal.toLocaleString();
+      itemCountElem.textContent = cartData.length;
+
+      document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const idx = parseInt(e.target.dataset.index);
+          cartData.splice(idx, 1);
+          localStorage.setItem('sneakCart', JSON.stringify(cartData));
+          updateCartCount();
+          renderCartPage();
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartCount();
+      renderCartPage();
+    });
+  </script>
+</body>
+</html>
