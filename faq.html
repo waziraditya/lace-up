@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Sneaker Store</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: #3498db;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #2980b9;
+        }
+
+        .faq-question.expanded {
+            background: #2980b9;
+        }
+
+        .faq-answer {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .faq-answer.hidden {
+            display: none;
+        }
+
+        .arrow {
+            transition: transform 0.3s;
+        }
+
+        .arrow.rotated {
+            transform: rotate(180deg);
+        }
+
+        .customer-question-section {
+            margin-top: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .customer-question-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #2980b9;
+        }
+
+        .ticket-info {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .faq-question {
+                padding: 12px 15px;
+            }
+            
+            .faq-answer {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+  <header class="navbar">
+  <div class="logo">👟 LaceUp</div>
+  <nav class="nav-menu">
+    <a href="#" data-categeory="all">All</a>
+    <a href="#" data-brand="men">Men</a>
+    <a href="#" data-brand="women">Women</a>
+    <a href="#" data-brand="kids">Kids</a>
+    <a href="#" data-brand="indian">Indian</a>
+    <a href="#" data-brand="sustainable">Sustainable</a>
+    <a href="#" data-brand="accessories">Accessories</a>
+    </nav>
+  <div class="nav-right">
+    <span id="user-info"></span>
+    <a href="profile.html" id="profile-link" style="display: none;">Profile</a>
+    <a href="login.html" id="login-link">Login</a>
+    <a href="signup.html" id="signup-link">Signup</a>
+    <div id="cart-toggle" class="cart-icon">🛒 <span id="cart-count">0</span></div>
+  </div>
+</header>
+
+    <div class="container">
+        <h1>Frequently Asked Questions</h1>
+        
+        <div class="faq-container">
+            <!-- FAQ Item 1 - Expanded by default -->
+            <div class="faq-item">
+                <div class="faq-question expanded" onclick="toggleFAQ(this)">
+                    <span>What sizes do you offer?</span>
+                    <span class="arrow rotated">▼</span>
+                </div>
+                <div class="faq-answer">
+                    We offer sneakers in sizes ranging from US 5 to US 13, including half sizes for a better fit.
+                </div>
+            </div>
+
+            <!-- FAQ Item 2 - Expanded by default -->
+            <div class="faq-item">
+                <div class="faq-question expanded" onclick="toggleFAQ(this)">
+                    <span>Are your sneakers unisex?</span>
+                    <span class="arrow rotated">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! Most of our sneaker designs are unisex unless otherwise stated in the product description.
+                </div>
+            </div>
+
+            <!-- FAQ Item 3 - Expanded by default -->
+            <div class="faq-item">
+                <div class="faq-question expanded" onclick="toggleFAQ(this)">
+                    <span>How can I find my perfect size?</span>
+                    <span class="arrow rotated">▼</span>
+                </div>
+                <div class="faq-answer">
+                    We recommend checking our size guide, available on each product page, and measuring your foot for accuracy.
+                </div>
+            </div>
+
+            <!-- FAQ Item 4 - Expanded by default -->
+            <div class="faq-item">
+                <div class="faq-question expanded" onclick="toggleFAQ(this)">
+                    <span>Do you offer free shipping?</span>
+                    <span class="arrow rotated">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes, we offer free standard shipping on orders above ₹3,000 within India.
+                </div>
+            </div>
+
+            <!-- FAQ Item 5 - Expanded by default -->
+            <div class="faq-item">
+                <div class="faq-question expanded" onclick="toggleFAQ(this)">
+                    <span>Can I return or exchange my sneakers?</span>
+                    <span class="arrow rotated">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Absolutely! We have a 14-day return and exchange policy as long as the sneakers are unworn and in their original packaging.
+                </div>
+            </div>
+
+            <!-- FAQ Item 6 - Collapsed by default -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I track my order?</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer hidden">
+                    Once your order ships, you'll receive a tracking link via email to follow your package's journey.
+                </div>
+            </div>
+
+            <!-- FAQ Item 7 - Collapsed by default -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Are your sneakers genuine?</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer hidden">
+                    Yes, we source all sneakers directly from authorized brands and distributors to ensure 100% authenticity.
+                </div>
+            </div>
+
+            <!-- FAQ Item 8 - Collapsed by default -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How should I clean my sneakers?</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer hidden">
+                    For most sneakers, a soft brush and mild soap will work. Avoid putting them in the washing machine unless specified safe by the brand.
+                </div>
+            </div>
+
+            <!-- FAQ Item 9 - Collapsed by default -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Do you sell limited edition or rare sneakers?</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer hidden">
+                    Yes, we occasionally drop limited edition releases. Follow us on Instagram and sign up for our newsletter to stay updated.
+                </div>
+            </div>
+
+            <!-- FAQ Item 10 - Collapsed by default -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Do you offer cash on delivery (COD)?</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-answer hidden">
+                    Yes, COD is available for select locations within India.
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Question Section -->
+        <div class="customer-question-section">
+            <h2>Have a Question? Ask Us!</h2>
+            <form id="questionForm">
+                <div class="form-group">
+                    <label for="customerName">Your Name:</label>
+                    <input type="text" id="customerName" name="customerName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerEmail">Email Address:</label>
+                    <input type="email" id="customerEmail" name="customerEmail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerQuestion">Your Question:</label>
+                    <textarea id="customerQuestion" name="customerQuestion" placeholder="Please describe your question in detail..." required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Question</button>
+            </form>
+            
+            <div id="ticketInfo" class="ticket-info">
+                <strong>Thank you for your question!</strong><br>
+                Your support ticket has been generated with ID: <span id="ticketId"></span><br>
+                We'll respond to your email within 24 hours.
+            </div>
+        </div>
+    </div>
+
+  <footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>LaceUp</h3>
+      <p>Premium sneakers for the modern sneakerhead.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="faq.html">FAQ</a>
+      <a href="#">Returns</a>
+    </div>
+    <div class="footer-section">
+      <h4>Follow Us</h4>
+      <p>📘 Facebook</p>
+      <p>📷 Instagram</p>
+      <p>🐦 Twitter</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2025 LaceUp. All rights reserved.
+  </div>
+</footer>
+
+  <aside id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button id="close-cart">✖</button>
+    </div>
+    <div id="cart-items"></div>
+    <div class="cart-footer">
+      <p>Total: ₹<span id="cart-total">0</span></p>
+    </div>
+  </aside>
+
+    <script src="script.js"></script>
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const arrow = element.querySelector('.arrow');
+            
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                arrow.classList.add('rotated');
+                element.classList.add('expanded');
+            } else {
+                answer.classList.add('hidden');
+                arrow.classList.remove('rotated');
+                element.classList.remove('expanded');
+            }
+        }
+
+        function generateTicketId() {
+            return 'SNK-' + Date.now().toString().slice(-6) + Math.random().toString(36).substr(2, 3).toUpperCase();
+        }
+
+        document.getElementById('questionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            const question = document.getElementById('customerQuestion').value;
+            
+            if (name && email && question) {
+                const ticketId = generateTicketId();
+                document.getElementById('ticketId').textContent = ticketId;
+                document.getElementById('ticketInfo').style.display = 'block';
+                
+                // Reset form
+                this.reset();
+                
+                // Hide ticket info after 10 seconds
+                setTimeout(() => {
+                    document.getElementById('ticketInfo').style.display = 'none';
+                }, 10000);
+            }
+        });
+    </script>
+</body>
+</html>
