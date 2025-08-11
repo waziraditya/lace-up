@@ -3,4 +3,5 @@
 Contact: ipm05adityaw@iimrohtak.ac.in
 Expires: 2026-06-15T12:00:00Z
 Preferred-Languages: en
+Policy: NA
 Canonical: https://waziraditya.github.io/lace-up/.well-known/security.txt
