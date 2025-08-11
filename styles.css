@@ -1286,7 +1286,7 @@ body {
 .container {
       max-width: 900px;
       margin: 40px auto;
-      background: #fff;
+      background: black;
       padding: 40px 20px;
       border-radius: 14px;
       box-shadow: 0 5px 20px rgba(32, 31, 45, 0.08);
@@ -1295,13 +1295,13 @@ body {
       margin-bottom: 38px;
     }
     h1 {
-      color: #341f97;
+      color: rgb(244, 119, 9);
       margin-bottom: 16px;
       letter-spacing: 0.05em;
       font-size: 2em;
     }
     h2 {
-      color: #341f97;
+      color: rgb(244, 119, 9);
       letter-spacing: 0.03em;
       margin-bottom: 11px;
       font-size: 1.5em;
