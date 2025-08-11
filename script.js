@@ -1,4 +1,3 @@
-
 // Sneaker data and cart logic
 let cart = JSON.parse(localStorage.getItem('sneakCart') || '[]');
 let allSneakers = [];
