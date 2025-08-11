@@ -240,46 +240,44 @@
         </a>
       `).join('');
 
-      // Add to cart behavior (uses same cart variables & saveCart from your script.js)
-      document.getElementById('addBtn').addEventListener('click', () => {
+            <!-- Add to cart & Buy Now behavior (REPLACE existing handlers) -->
+      <script>
+      // Add to cart on product page — passes the click event so addToCart shows button feedback
+      document.getElementById('addBtn').addEventListener('click', function (e) {
         const size = document.getElementById('sizeSelect').value;
         const color = document.getElementById('colorSelect').value;
         const qty = Math.max(1, parseInt(document.getElementById('qty').value, 10) || 1);
 
-        const cartItem = {
-          id: product.id,
-          title: product.title,
-          brand: product.brand,
-          price: product.price,
-          size, color, qty,
-          image: images[0]
-        };
+        // Pass the DOM event so addToCart can change the clicked button's appearance
+        addToCart(e, product.id, { size, color, qty });
 
-        // 'cart' and 'saveCart' come from script.js loaded above
-        if (typeof cart === 'undefined') window.cart = JSON.parse(localStorage.getItem('sneakCart') || '[]');
-        cart.push(cartItem);
-        if (typeof saveCart === 'function') {
-          saveCart(); // this will set localStorage and rerender cart in index if present
-        } else {
-          localStorage.setItem('sneakCart', JSON.stringify(cart));
-          document.getElementById('cart-count').innerText = cart.length;
-        }
-
-        if (typeof showToast === 'function') showToast('Added to cart ✔', 1800);
-        else alert('Added to cart ✔');
-
-        // Try to open cart sidebar if present on page (index) by toggling element
+        // Optional: open cart sidebar on index if available (small delay so user sees the animation)
         const toggle = document.getElementById('cart-toggle');
-        if (toggle) toggle.click();
+        if (toggle) setTimeout(() => toggle.click(), 300);
       });
 
-      // Buy now: add then open cart UI or alert
-      document.getElementById('buyBtn').addEventListener('click', () => {
-        document.getElementById('addBtn').click();
-        if (typeof showToast === 'function') showToast('Proceed to checkout (mock) ✨', 1600);
-        else alert('Proceed to checkout (mock)');
-      });
+      // Buy Now: give visible feedback, add to cart, then redirect to cart page
+      document.getElementById('buyBtn').addEventListener('click', function (e) {
+        const buyBtn = e.currentTarget;
+        buyBtn.disabled = true;
+        const origText = buyBtn.textContent;
+        buyBtn.textContent = 'Processing...';
+        buyBtn.style.transform = 'scale(0.98)';
 
+        const size = document.getElementById('sizeSelect').value;
+        const color = document.getElementById('colorSelect').value;
+        const qty = Math.max(1, parseInt(document.getElementById('qty').value, 10) || 1);
+
+        // Add item (no need to pass buyBtn event to addToCart — we already show feedback on buyBtn)
+        addToCart(null, product.id, { size, color, qty });
+
+        if (typeof showToast === 'function') showToast('Proceeding to cart…', 800);
+
+        // short delay so user sees the feedback, then go to cart
+        setTimeout(() => {
+          window.location.href = 'cart.html';
+        }, 600);
+      });
       // update cart-count in header if saveCart already populated it
       const currentCart = JSON.parse(localStorage.getItem('sneakCart') || '[]');
       document.getElementById('cart-count').innerText = currentCart.length;
@@ -287,3 +285,4 @@
   </script>
 </body>
 </html>
+
