@@ -1,12 +1,17 @@
-// Sneaker data and cart logic
+// --------------------
+// LaceUp — main script
+// --------------------
+
+// Local state
 let cart = JSON.parse(localStorage.getItem('sneakCart') || '[]');
 let allSneakers = [];
 let filteredSneakers = [];
 
-
-// Sneaker database with trendy models
+// ---------- sneaker data ----------
 const sneakerData = [
-  // Men
+  /* (use the same objects you had) */
+  // I'm keeping your full dataset as-is for brevity — paste the same array here from your file.
+  // For demonstration I include a few items — replace with full list from your original.
   {
     id: 1,
     title: "Converse Chuck Taylor All Star",
@@ -27,7 +32,7 @@ const sneakerData = [
     image: "https://res.cloudinary.com/dqka2nzzx/image/upload/w_400,h_300,c_fill/v1754684349/AIR_JORDAN_1_RETRO_HIGH_OG_pe6alf.jpg",
     description: "Classic basketball sneaker with premium leather construction"
   },
-  {
+   {
     id: 3,
     title: "Adidas Stan Smith",
     brand: "Adidas",
@@ -307,165 +312,83 @@ const sneakerData = [
   },
 ];
 
-function updateNavbarUser() {
-  const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  const profileLink = document.getElementById("profile-link");
-  const loginLink = document.getElementById("login-link");
-  const signupLink = document.getElementById("signup-link");
 
-  if (currentUser && profileLink) {
-    // Show username instead of "Profile"
-    profileLink.textContent = currentUser.username;
-    profileLink.style.display = "inline-block";
-
-    // Hide login/signup buttons
-    if (loginLink) loginLink.style.display = "none";
-    if (signupLink) signupLink.style.display = "none";
-  } else {
-    // If logged out
-    if (profileLink) profileLink.style.display = "none";
-    if (loginLink) loginLink.style.display = "inline-block";
-    if (signupLink) signupLink.style.display = "inline-block";
-  }
+// ---------- utility functions ----------
+function loadCartFromStorage() {
+  cart = JSON.parse(localStorage.getItem('sneakCart') || '[]');
 }
 
-// Initialize app
-document.addEventListener('DOMContentLoaded', () => {
-  updateNavbarUser(); // NEW — run before anything else
-
-  allSneakers = sneakerData;
-
-  filteredSneakers = allSneakers;
+function saveCartToStorage() {
+  localStorage.setItem('sneakCart', JSON.stringify(cart));
   updateCartCount();
-  renderCart();
-  showToast('Welcome to LaceUp! 👟', 3000);
-  if (document.getElementById('cart-items-list')) {
-  renderCartPage();
 }
 
-  function renderCartPage() {
-  const listContainer = document.getElementById('cart-items-list');
-  if (!listContainer) return; // not on cart page
-
-  const emptyState = document.getElementById('empty-cart');
-  const subtotalElem = document.getElementById('cart-subtotal');
-  const itemCountElem = document.getElementById('item-count');
-
-  listContainer.innerHTML = '';
-
-  if (cart.length === 0) {
-    if (emptyState) emptyState.style.display = 'block';
-    const summary = document.getElementById('cart-summary');
-    if (summary) summary.style.display = 'none';
-    if (subtotalElem) subtotalElem.textContent = '0';
-    if (itemCountElem) itemCountElem.textContent = '0';
-    return;
-  } else {
-    if (emptyState) emptyState.style.display = 'none';
-    const summary = document.getElementById('cart-summary');
-    if (summary) summary.style.display = 'block';
-  }
-
-  let subtotal = 0;
-  cart.forEach((item, index) => {
-    subtotal += item.price;
-    const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.style.marginBottom = '15px';
-    div.innerHTML = `
-      <div style="display:flex; gap:15px; align-items:center;">
-        <img src="${item.image}" alt="${item.title}" style="width:100px; height:100px; object-fit:cover; border-radius:10px;">
-        <div style="flex:1;">
-          <h4 style="margin:0 0 4px 0; color:#fff;">${item.title}</h4>
-          <p style="margin:0 0 6px 0; color:rgba(255,255,255,0.6)">${item.brand}</p>
-          <p style="margin:0 0 8px 0; color:#ff6b35; font-weight:700;">₹${item.price.toLocaleString()}</p>
-          <button class="remove-btn" data-index="${index}" style="padding:8px 12px; background:linear-gradient(45deg,#ff4757,#ff3742); color:#fff; border:none; border-radius:20px; cursor:pointer; font-size:0.85rem;">Remove</button>
-        </div>
-      </div>
-    `;
-    listContainer.appendChild(div);
-  });
-
-  if (subtotalElem) subtotalElem.textContent = subtotal.toLocaleString();
-  if (itemCountElem) itemCountElem.textContent = cart.length;
-
-  // attach event listeners to remove buttons
-  document.querySelectorAll('#cart-items-list .remove-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const idx = Number(e.currentTarget.dataset.index);
-      removeFromCart(idx);         // existing function
-      // re-render page after change
-      renderCartPage();
-    });
-  });
-}
-
-  
-  // Load sneakers with animation
-  setTimeout(() => {
-    renderSneakers(allSneakers);
-    setupSlideshow();
-    setupSearch();
-    setupNavFiltering();
-  }, 500);
-});
-
-
-// Cart functionality
 function updateCartCount() {
   const countElem = document.getElementById('cart-count');
   if (countElem) {
-    countElem.textContent = cart.length;
+    const cartData = JSON.parse(localStorage.getItem('sneakCart') || '[]');
+    const totalQty = cartData.reduce((sum, item) => sum + (item.qty || 1), 0);
+    countElem.textContent = totalQty;
   }
 }
 
-function saveCart() {
-  localStorage.setItem("sneakCart", JSON.stringify(cart));
-  updateCartCount();
-  renderCart();
-  if (typeof renderCartPage === 'function') renderCartPage();
+// small toast
+function showToast(message, duration = 2500) {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  // allow CSS to animate using .show class if available
+  setTimeout(() => toast.classList.add('show'), 50);
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => {
+      if (toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 300);
+  }, duration);
 }
 
-function renderCart() {
-  const container = document.getElementById("cart-items");
-  const totalPrice = document.getElementById("cart-total");
-  container.innerHTML = '';
-  let total = 0;
+// inline bubble fallback (near button)
+function showInlineBubble(targetEl, message) {
+  const bubble = document.createElement('div');
+  bubble.className = 'inline-bubble';
+  bubble.textContent = message;
+  document.body.appendChild(bubble);
 
-  cart.forEach((item, index) => {
-    total += item.price;
-    const div = document.createElement("div");
-    div.className = "cart-item";
-    div.innerHTML = `
-      <div>
-        <strong>${item.title}</strong><br>
-        <small>${item.brand} • ₹${item.price}</small>
-      </div>
-      <button onclick="removeFromCart(${index})">Remove</button>
-    `;
-    container.appendChild(div);
-  });
+  if (targetEl && typeof targetEl.getBoundingClientRect === 'function') {
+    const rect = targetEl.getBoundingClientRect();
+    bubble.style.position = 'fixed';
+    bubble.style.left = Math.min(window.innerWidth - 260, rect.left + rect.width / 2) + 'px';
+    bubble.style.top = Math.max(20, rect.top - 44) + 'px';
+    bubble.style.transform = 'translateX(-50%)';
+  } else {
+    bubble.style.position = 'fixed';
+    bubble.style.right = '24px';
+    bubble.style.top = '80px';
+  }
 
-  totalPrice.innerText = total.toLocaleString();
+  bubble.style.opacity = '0';
+  setTimeout(() => bubble.style.opacity = '1', 20);
+
+  setTimeout(() => {
+    bubble.style.opacity = '0';
+    setTimeout(() => { if (bubble.parentNode) bubble.remove(); }, 300);
+  }, 1400);
 }
 
-function removeFromCart(index) {
-  const removedItem = cart[index];
-  cart.splice(index, 1);
-  saveCart();
-  showToast(`Removed ${removedItem.title} from cart`, 2000);
-}
-
-
-// Render sneakers with animations
+// ---------- render product grid ----------
 function renderSneakers(sneakers) {
   const container = document.getElementById("all-products");
+  if (!container) return;
+
   container.innerHTML = "";
 
-  if (sneakers.length === 0) {
+  if (!Array.isArray(sneakers) || sneakers.length === 0) {
     container.innerHTML = `
-      <div style='text-align: center; font-size: 1.2rem; color: #666; padding: 60px; grid-column: 1/-1;'>
-        <div style='font-size: 4rem; margin-bottom: 20px;'>👟</div>
+      <div style='text-align:center; padding:60px; color:#999; grid-column:1/-1;'>
+        <div style='font-size:3rem; margin-bottom:12px;'>👟</div>
         <p>No sneakers found. Try a different search or filter.</p>
       </div>
     `;
@@ -476,74 +399,104 @@ function renderSneakers(sneakers) {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-  <a href="product.html?id=${sneaker.id}" style="text-decoration: none; color: inherit;">
-    <img src="${sneaker.image}" alt="${sneaker.title}" loading="lazy" />
-    <div class="brand">${sneaker.brand}</div>
-    <h3>${sneaker.title}</h3>
-  </a>
-  <p class="price">₹${sneaker.price.toLocaleString()}</p>
-  <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin: 10px 0;">${sneaker.description}</p>
-  <button onclick="addToCart(${sneaker.id})">Add to Cart 🛒</button>
-`;
-
+      <a href="product.html?id=${sneaker.id}" style="text-decoration:none; color:inherit;">
+        <img src="${sneaker.image}" alt="${escapeHtml(sneaker.title)}" loading="lazy" />
+        <div class="brand">${escapeHtml(sneaker.brand)}</div>
+        <h3>${escapeHtml(sneaker.title)}</h3>
+      </a>
+      <p class="price">₹${Number(sneaker.price).toLocaleString()}</p>
+      <p style="color: rgba(255,255,255,0.7); font-size:0.9rem; margin:10px 0;">${escapeHtml(sneaker.description || '')}</p>
+      <button class="card-add-btn" data-id="${sneaker.id}">Add to Cart 🛒</button>
+    `;
     container.appendChild(card);
-    
-    // Stagger animation
-    setTimeout(() => {
-      card.classList.add('show');
-    }, index * 100);
+
+    // stagger animation (if CSS uses .show)
+    setTimeout(() => card.classList.add('show'), index * 80);
+  });
+
+  // attach listeners for add buttons
+  container.querySelectorAll('.card-add-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = Number(e.currentTarget.dataset.id);
+      addToCart(e, id);
+    });
   });
 }
 
-// Improved addToCart with visible button feedback (used by index cards)
-// Usage in card HTML: onclick="addToCart(event, 3)"
-function addToCart(sneakerId) {
-  const sneaker = allSneakers.find(s => s.id === sneakerId);
-  if (sneaker) {
-    cart.push(sneaker);
-    localStorage.setItem('sneakCart', JSON.stringify(cart));
-    updateCartCount();
-    showToast(`Added ${sneaker.title} to cart! 🔥`, 2000);
-  }
+// small HTML-escape helper
+function escapeHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
+// ---------- add to cart (single canonical function) ----------
+/**
+ * addToCart(e, sneakerId, options)
+ * e: event (optional)
+ * sneakerId: number
+ * options: { size, color, qty }
+ */
+function addToCart(e = null, sneakerId, options = {}) {
+  // find button element (if any)
+  const btn = e && e.currentTarget ? e.currentTarget : (e && e.target) ? e.target.closest('button') : null;
 
-  // find sneaker data
-  const sneaker = allSneakers.find(s => s.id === sneakerId);
-  if (!sneaker) return;
+  const source = (Array.isArray(allSneakers) && allSneakers.length) ? allSneakers : sneakerData;
+  const sneaker = source.find(s => s.id === Number(sneakerId));
+  if (!sneaker) {
+    console.warn('addToCart: sneaker not found', sneakerId);
+    if (btn) showInlineBubble(btn, 'Product not found');
+    return;
+  }
 
-  // visual feedback: disable button, change text + style
+  loadCartFromStorage(); // keep local cart in sync with storage
+
+  const size = options.size ?? null;
+  const color = options.color ?? null;
+  const qty = options.qty && Number.isFinite(Number(options.qty)) ? Math.max(1, parseInt(options.qty, 10)) : 1;
+
+  // find existing item with same id + size + color
+  const existingIndex = cart.findIndex(item =>
+    item.id === sneaker.id &&
+    (item.size ?? null) === size &&
+    (item.color ?? null) === color
+  );
+
+  if (existingIndex > -1) {
+    cart[existingIndex].qty = (cart[existingIndex].qty || 1) + qty;
+  } else {
+    cart.push({
+      id: sneaker.id,
+      title: sneaker.title,
+      brand: sneaker.brand,
+      price: sneaker.price,
+      size: size,
+      color: color,
+      qty: qty,
+      image: (sneaker.images && sneaker.images[0]) || sneaker.image
+    });
+  }
+
+  saveCartToStorage();
+
+  // visual feedback
   if (btn) {
     btn.disabled = true;
     btn.dataset.origText = btn.textContent;
     btn.textContent = 'Added ✓';
-    btn.style.transform = 'scale(0.98)';
-    btn.style.background = 'linear-gradient(45deg, #51cf66, #40c057)';
+    btn.style.transform = 'scale(0.97)';
+    btn.style.background = 'linear-gradient(45deg,#51cf66,#40c057)';
     btn.style.color = '#000';
   }
 
-  // add item to cart
-  cart.push({
-    id: sneaker.id,
-    title: sneaker.title,
-    brand: sneaker.brand,
-    price: sneaker.price,
-    qty: 1,
-    image: sneaker.image
-  });
-
-  // save & update UI
-  saveCart();
-
-  // show a toast near the top-right (or use existing showToast)
   if (typeof showToast === 'function') {
-    showToast(`Added ${sneaker.title} to cart ✔`, 1800);
-  } else {
-    // fallback little floating bubble close to the button
-    showInlineBubble(btn || document.body, `Added ${sneaker.title}`);
+    showToast(`Added ${sneaker.title} to cart ✔`, 1400);
+  } else if (btn) {
+    showInlineBubble(btn, `Added ${sneaker.title}`);
   }
 
-  // revert button after 1.5s so user can click again
+  // revert button after short delay
   setTimeout(() => {
     if (btn) {
       btn.disabled = false;
@@ -552,323 +505,63 @@ function addToCart(sneakerId) {
       btn.style.background = '';
       btn.style.color = '';
     }
-  }, 1500);
+  }, 1200);
+
+  // update cart UI components if present
+  renderCart();
+  if (typeof renderCartPage === 'function') renderCartPage();
 }
 
-// helper to show a small floating confirmation near an element (fallback)
-function showInlineBubble(targetEl, message) {
-  const bubble = document.createElement('div');
-  bubble.className = 'inline-bubble';
-  bubble.textContent = message;
-  document.body.appendChild(bubble);
-
-  // position: near the target element center (best-effort)
-  if (targetEl && targetEl.getBoundingClientRect) {
-    const rect = targetEl.getBoundingClientRect();
-    bubble.style.position = 'fixed';
-    bubble.style.left = Math.min(window.innerWidth - 260, rect.left + rect.width / 2) + 'px';
-    bubble.style.top = Math.max(20, rect.top - 40) + 'px';
-  } else {
-    bubble.style.right = '24px';
-    bubble.style.top = '80px';
-  }
-
-  bubble.style.opacity = 0;
-  setTimeout(() => bubble.style.opacity = 1, 20);
-  setTimeout(() => {
-    bubble.style.opacity = 0;
-    setTimeout(() => bubble.remove(), 300);
-  }, 1600);
+// ---------- remove from cart ----------
+function removeFromCart(index) {
+  index = Number(index);
+  if (!Number.isFinite(index)) return;
+  loadCartFromStorage();
+  const removed = cart.splice(index, 1)[0];
+  saveCartToStorage();
+  renderCart();
+  if (typeof renderCartPage === 'function') renderCartPage();
+  if (removed) showToast(`Removed ${removed.title} from cart`, 1500);
 }
 
+// ---------- render small cart (sidebar) ----------
+function renderCart() {
+  const container = document.getElementById("cart-items");
+  const totalPriceElem = document.getElementById("cart-total");
+  if (!container) return;
 
-// Slideshow functionality
-let currentSlide = 0;
-let slideInterval;
+  container.innerHTML = '';
+  let total = 0;
 
-const heroSlides = [
-  {
-    image: "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1200&h=600&fit=crop",
-    text: "Step Into Greatness - Jordan Collection"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&h=600&fit=crop",
-    text: "Just Do It - Nike Premium Line"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=1200&h=600&fit=crop",
-    text: "Impossible Is Nothing - Adidas"
-  }
-];
+  loadCartFromStorage();
 
-function setupSlideshow() {
-  const slider = document.getElementById("slider");
-  const controlsContainer = document.getElementById('slideControls');
-  
-  // Clear existing slides except the first one
-  slider.innerHTML = '';
-  controlsContainer.innerHTML = '';
-  
-  // Add hero slides
-  heroSlides.forEach((slide, index) => {
-    const slideDiv = document.createElement("div");
-    slideDiv.className = index === 0 ? "slide active" : "slide";
-    slideDiv.innerHTML = `
-      <img src="${slide.image}" alt="Hero ${index + 1}" />
-      <div class="slide-text">${slide.text}</div>
+  cart.forEach((item, index) => {
+    total += (Number(item.price) || 0) * (item.qty || 1);
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <div style="flex:1;">
+        <strong>${escapeHtml(item.title)}</strong><br>
+        <small>${escapeHtml(item.brand)} • ₹${Number(item.price).toLocaleString()} × ${item.qty || 1}</small>
+      </div>
+      <button class="cart-remove-btn" data-index="${index}">Remove</button>
     `;
-    slider.appendChild(slideDiv);
-    
-    // Add control dot
-    const dot = document.createElement('div');
-    dot.className = `slide-dot ${index === 0 ? 'active' : ''}`;
-    dot.onclick = () => goToSlide(index);
-    controlsContainer.appendChild(dot);
+    container.appendChild(div);
   });
-  
-  // Navigation buttons
-  document.getElementById('prevSlide').onclick = prevSlide;
-  document.getElementById('nextSlide').onclick = nextSlide;
-  
-  // Auto-advance
-  slideInterval = setInterval(nextSlide, 5000);
-  
-  // Pause on hover
-  const slideshow = document.querySelector('.slideshow');
-  slideshow.onmouseenter = () => clearInterval(slideInterval);
-  slideshow.onmouseleave = () => {
-    slideInterval = setInterval(nextSlide, 5000);
-  };
-}
 
-function goToSlide(index) {
-  const slides = document.querySelectorAll(".slide");
-  const dots = document.querySelectorAll(".slide-dot");
-  
-  slides[currentSlide].classList.remove("active");
-  dots[currentSlide].classList.remove("active");
-  
-  currentSlide = index;
-  
-  slides[currentSlide].classList.add("active");
-  dots[currentSlide].classList.add("active");
-}
+  if (totalPriceElem) totalPriceElem.innerText = total.toLocaleString();
+  updateCartCount();
 
-function nextSlide() {
-  const slides = document.querySelectorAll(".slide");
-  const nextIndex = (currentSlide + 1) % slides.length;
-  goToSlide(nextIndex);
-}
-
-function prevSlide() {
-  const slides = document.querySelectorAll(".slide");
-  const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
-  goToSlide(prevIndex);
-}
-
-// Search functionality
-function setupSearch() {
-  const searchBar = document.getElementById('searchBar');
-  const searchBtn = document.getElementById('searchBtn');
-  
-  function performSearch() {
-    const query = searchBar.value.toLowerCase().trim();
-    
-    if (query === '') {
-      renderSneakers(filteredSneakers);
-      return;
-    }
-    
-    const searchResults = filteredSneakers.filter(sneaker => 
-      sneaker.title.toLowerCase().includes(query) ||
-      sneaker.brand.toLowerCase().includes(query) ||
-      sneaker.category.toLowerCase().includes(query) ||
-      sneaker.description.toLowerCase().includes(query)
-    );
-    
-    renderSneakers(searchResults);
-    
-    if (searchResults.length === 0) {
-      showToast('No sneakers found for your search 👟', 2000);
-    } else {
-      showToast(`Found ${searchResults.length} sneakers`, 1500);
-    }
-  }
-  
-  searchBar.addEventListener('input', performSearch);
-  searchBtn.addEventListener('click', performSearch);
-  
-  searchBar.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      performSearch();
-    }
-  });
-}
-
-// Navigation filtering
-function setupNavFiltering() {
-  const navLinks = document.querySelectorAll(".nav-menu a");
-
-  navLinks.forEach(link => {
-    link.addEventListener("click", e => {
-      e.preventDefault();
-      
-      // Remove active class from all links
-      navLinks.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
-      
-      const category = link.getAttribute("data-category");
-      const brand = link.getAttribute("data-brand");
-      const linkText = link.textContent;
-      
-      // Update section title
-      const sectionTitle = document.querySelector('.category-section h2');
-      
-      let filtered = [];
-      
-      if (category === "all") {
-        filtered = allSneakers;
-        sectionTitle.textContent = 'Latest Drops';
-        showToast('Showing all sneakers 👟', 1500);
-      } 
-      else if (brand === "men") {
-        filtered = allSneakers.filter(s => Array.isArray(s.tab) ? s.tab.includes("men") : s.tab === "men");;
-        sectionTitle.textContent = "Men's Sneakers";
-        showToast(`Showing mMn's sneakers (${filtered.length} items)`, 2000);
-      } 
-      else if (brand === "women") {
-        filtered = allSneakers.filter(s => Array.isArray(s.tab) ? s.tab.includes("women") : s.tab === "women");;
-        sectionTitle.textContent = "Women's Sneakers";
-        showToast(`Showing Women's sneakers (${filtered.length} items)`, 2000);
-      }
-      else if (brand === "kids") {
-        filtered = allSneakers.filter(s => Array.isArray(s.tab) ? s.tab.includes("kids") : s.tab === "kids");;
-        sectionTitle.textContent = "Kid's Sneakers";
-        showToast(`Showing Kid's sneakers (${filtered.length} items)`, 2000);
-      }
-      else if (brand === "sustainable") {
-        filtered = allSneakers.filter(s => Array.isArray(s.tab) ? s.tab.includes("sustainable") : s.tab === "sustainable");;
-        sectionTitle.textContent = "Sustainable Sneakers";
-        showToast(`Showing Sustainable sneakers (${filtered.length} items)`, 2000);
-      }
-      else if (brand === "indian") {
-        filtered = allSneakers.filter(s => Array.isArray(s.tab) ? s.tab.includes("indian") : s.tab === "indian");;
-        sectionTitle.textContent = "Indian Brands";
-        showToast(`Showing Indian sneakers (${filtered.length} items)`, 2000);
-      }
-      else if (brand === "accessories") {
-        filtered = allSneakers.filter(s => Array.isArray(s.tab) ? s.tab.includes("accessories") : s.tab === "accessories");;
-        sectionTitle.textContent = "Accessories";
-        showToast(`Showing Sneaker Accessories (${filtered.length} items)`, 2000);
-      }
-
-      filteredSneakers = filtered;
-      renderSneakers(filtered);
-      
-      // Clear search
-      document.getElementById('searchBar').value = '';
+  // attach remove listeners
+  container.querySelectorAll('.cart-remove-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const idx = Number(e.currentTarget.dataset.index);
+      removeFromCart(idx);
     });
   });
-  
-  // Set first link as active
-  if (navLinks.length > 0) {
-    navLinks[0].classList.add('active');
-  }
 }
 
-// Toast notification system
-function showToast(message, duration = 3000) {
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  
-  setTimeout(() => toast.classList.add('show'), 100);
-  
-  setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => {
-      if (document.body.contains(toast)) {
-        document.body.removeChild(toast);
-      }
-    }, 300);
-  }, duration);
-}
-
-// User authentication display
-const userInfo = document.getElementById("user-info");
-const loginLink = document.getElementById("login-link");
-const signupLink = document.getElementById("signup-link");
-const profileLink = document.getElementById("profile-link");
-const user = JSON.parse(localStorage.getItem("loggedInUser"));
-
-if (user && userInfo) {
-  userInfo.innerHTML = `
-    <span style="color: #ff6b35; font-weight: 600;">👤 ${user.username}</span>
-    <button onclick="logout()" style="margin-left: 15px; background: linear-gradient(45deg, #ff4757, #ff3742); color: white; border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: 600;">Logout</button>
-  `;
-  loginLink.style.display = "none";
-  signupLink.style.display = "none";
-  if (profileLink) profileLink.style.display = "inline-block";
-}
-
-function logout() {
-  localStorage.removeItem("loggedInUser");
-  showToast('Logged out successfully! 👋', 2000);
-  setTimeout(() => location.reload(), 1000);
-}
-
-// Smooth scroll for navigation
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  });
-});
-
-// Add some dynamic effects
-window.addEventListener('scroll', () => {
-  const navbar = document.querySelector('.navbar');
-  if (window.scrollY > 100) {
-    navbar.style.background = 'rgba(0, 0, 0, 0.95)';
-    navbar.style.backdropFilter = 'blur(20px)';
-  } else {
-    navbar.style.background = 'rgba(0, 0, 0, 0.9)';
-    navbar.style.backdropFilter = 'blur(20px)';
-  }
-});
-
-// Keyboard shortcuts
-document.addEventListener('keydown', (e) => {
-  // Press 'S' to focus search
-  if (e.key === 's' || e.key === 'S') {
-    if (e.target.tagName !== 'INPUT') {
-      e.preventDefault();
-      document.getElementById('searchBar').focus();
-    }
-  }
-  
-  // Press 'C' to toggle cart
-  if (e.key === 'c' || e.key === 'C') {
-    if (e.target.tagName !== 'INPUT') {
-      e.preventDefault();
-      document.getElementById('cart-toggle').click();
-    }
-  }
-  
-  // Press Escape to close cart
-  if (e.key === 'Escape') {
-    document.getElementById('cart-sidebar').classList.remove('open');
-    document.body.classList.remove('cart-open');
-  }
-});
-// If on cart.html, render cart contents
+// ---------- cart page render (cart.html) ----------
 function renderCartPage() {
   const listContainer = document.getElementById('cart-items-list');
   if (!listContainer) return; // not on cart page
@@ -879,48 +572,291 @@ function renderCartPage() {
   const itemCountElem = document.getElementById('item-count');
 
   listContainer.innerHTML = '';
+  loadCartFromStorage();
 
-  if (cart.length === 0) {
-    emptyState.style.display = 'block';
-    summary.style.display = 'none';
+  if (!cart || cart.length === 0) {
+    if (emptyState) emptyState.style.display = 'block';
+    if (summary) summary.style.display = 'none';
+    if (subtotalElem) subtotalElem.textContent = '0';
+    if (itemCountElem) itemCountElem.textContent = '0';
     return;
+  } else {
+    if (emptyState) emptyState.style.display = 'none';
+    if (summary) summary.style.display = 'block';
   }
 
-  emptyState.style.display = 'none';
-  summary.style.display = 'block';
-
   let subtotal = 0;
+  let totalItems = 0;
   cart.forEach((item, index) => {
-    subtotal += item.price;
+    const itemTotal = (Number(item.price) || 0) * (item.qty || 1);
+    subtotal += itemTotal;
+    totalItems += (item.qty || 1);
     const div = document.createElement('div');
     div.className = 'cart-item';
     div.innerHTML = `
-      <img src="${item.image}" alt="${item.title}">
+      <img src="${item.image}" alt="${escapeHtml(item.title)}" style="width:80px; height:80px; object-fit:cover; margin-right:12px;">
       <div class="cart-item-details">
-        <h4>${item.title}</h4>
-        <p>${item.brand}</p>
-        <p><strong>₹${item.price.toLocaleString()}</strong></p>
+        <h4>${escapeHtml(item.title)}</h4>
+        <p>${escapeHtml(item.brand)} • Qty: ${item.qty || 1}</p>
+        <p><strong>₹${Number(item.price).toLocaleString()} × ${item.qty || 1} = ₹${itemTotal.toLocaleString()}</strong></p>
         <button class="remove-btn" data-index="${index}">Remove</button>
       </div>
     `;
     listContainer.appendChild(div);
   });
 
-  subtotalElem.textContent = subtotal.toLocaleString();
-  itemCountElem.textContent = cart.length;
+  if (subtotalElem) subtotalElem.textContent = subtotal.toLocaleString();
+  if (itemCountElem) itemCountElem.textContent = totalItems;
 
-  document.querySelectorAll('.remove-btn').forEach(btn => {
-    btn.addEventListener('click', e => {
-      const idx = parseInt(e.target.dataset.index);
-      cart.splice(idx, 1);
-      localStorage.setItem('sneakCart', JSON.stringify(cart));
-      updateCartCount();
-      renderCartPage();
+  listContainer.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const idx = Number(e.currentTarget.dataset.index);
+      removeFromCart(idx);
+      renderCartPage(); // re-render
     });
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// ---------- search ----------
+function setupSearch() {
+  const searchBar = document.getElementById('searchBar');
+  const searchBtn = document.getElementById('searchBtn');
+  if (!searchBar) return;
+
+  function performSearch() {
+    const query = searchBar.value.toLowerCase().trim();
+    if (query === '') {
+      renderSneakers(filteredSneakers);
+      return;
+    }
+
+    const results = filteredSneakers.filter(s =>
+      (s.title || '').toLowerCase().includes(query) ||
+      (s.brand || '').toLowerCase().includes(query) ||
+      (s.category || '').toLowerCase().includes(query) ||
+      (s.description || '').toLowerCase().includes(query)
+    );
+
+    renderSneakers(results);
+    if (results.length === 0) showToast('No sneakers found for your search 👟', 1800);
+    else showToast(`Found ${results.length} sneakers`, 1200);
+  }
+
+  searchBar.addEventListener('input', performSearch);
+  if (searchBtn) searchBtn.addEventListener('click', performSearch);
+  searchBar.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
+}
+
+// ---------- navigation / category filtering ----------
+function setupNavFiltering() {
+  const navLinks = document.querySelectorAll(".nav-menu a");
+  if (!navLinks) return;
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+
+      const category = link.getAttribute('data-category');
+      const brand = link.getAttribute('data-brand');
+
+      const sectionTitle = document.querySelector('.category-section h2');
+
+      let filtered = allSneakers.slice();
+
+      if (category === 'all' || (!category && !brand)) {
+        filtered = allSneakers.slice();
+        if (sectionTitle) sectionTitle.textContent = 'Latest Drops';
+        showToast('Showing all sneakers 👟', 1200);
+      } else if (brand) {
+        filtered = allSneakers.filter(s => Array.isArray(s.tab) ? s.tab.includes(brand) : s.tab === brand);
+        if (sectionTitle) {
+          const pretty = brand.charAt(0).toUpperCase() + brand.slice(1);
+          sectionTitle.textContent = brand === 'indian' ? 'Indian Brands' : (brand === 'sustainable' ? 'Sustainable Sneakers' : `${pretty} Sneakers`);
+        }
+        showToast(`Showing ${link.textContent.trim()} (${filtered.length} items)`, 1200);
+      } else if (category) {
+        filtered = allSneakers.filter(s => (s.category || '').toLowerCase() === category.toLowerCase());
+        if (sectionTitle) sectionTitle.textContent = `${category.charAt(0).toUpperCase() + category.slice(1)}`;
+        showToast(`Showing ${category} (${filtered.length} items)`, 1200);
+      }
+
+      filteredSneakers = filtered;
+      renderSneakers(filtered);
+      const sb = document.getElementById('searchBar');
+      if (sb) sb.value = '';
+    });
+  });
+
+  if (navLinks.length > 0) navLinks[0].classList.add('active');
+}
+
+// ---------- slideshow ----------
+let currentSlide = 0;
+let slideInterval = null;
+const heroSlides = [
+  { image: "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1200&h=600&fit=crop", text: "Step Into Greatness - Jordan Collection" },
+  { image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&h=600&fit=crop", text: "Just Do It - Nike Premium Line" },
+  { image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=1200&h=600&fit=crop", text: "Impossible Is Nothing - Adidas" }
+];
+
+function setupSlideshow() {
+  const slider = document.getElementById("slider");
+  const controlsContainer = document.getElementById('slideControls');
+  if (!slider || !controlsContainer) return;
+
+  slider.innerHTML = '';
+  controlsContainer.innerHTML = '';
+
+  heroSlides.forEach((slide, idx) => {
+    const slideDiv = document.createElement('div');
+    slideDiv.className = idx === 0 ? 'slide active' : 'slide';
+    slideDiv.innerHTML = `
+      <img src="${slide.image}" alt="Hero ${idx+1}" />
+      <div class="slide-text">${escapeHtml(slide.text)}</div>
+    `;
+    slider.appendChild(slideDiv);
+
+    const dot = document.createElement('div');
+    dot.className = `slide-dot ${idx === 0 ? 'active' : ''}`;
+    dot.addEventListener('click', () => goToSlide(idx));
+    controlsContainer.appendChild(dot);
+  });
+
+  const prevBtn = document.getElementById('prevSlide');
+  const nextBtn = document.getElementById('nextSlide');
+  if (prevBtn) prevBtn.onclick = prevSlide;
+  if (nextBtn) nextBtn.onclick = nextSlide;
+
+  if (slideInterval) clearInterval(slideInterval);
+  slideInterval = setInterval(nextSlide, 5000);
+
+  const slideshowEl = document.querySelector('.slideshow');
+  if (slideshowEl) {
+    slideshowEl.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    slideshowEl.addEventListener('mouseleave', () => { slideInterval = setInterval(nextSlide, 5000); });
+  }
+}
+
+function goToSlide(index) {
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.slide-dot');
+  if (!slides.length) return;
+
+  slides[currentSlide].classList.remove('active');
+  if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+
+  currentSlide = index % slides.length;
+
+  slides[currentSlide].classList.add('active');
+  if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+}
+
+function nextSlide() { goToSlide((currentSlide + 1) % document.querySelectorAll('.slide').length); }
+function prevSlide() { goToSlide((currentSlide - 1 + document.querySelectorAll('.slide').length) % document.querySelectorAll('.slide').length); }
+
+// ---------- user / navbar ----------
+function updateNavbarUser() {
+  const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  const profileLink = document.getElementById("profile-link");
+  const loginLink = document.getElementById("login-link");
+  const signupLink = document.getElementById("signup-link");
+
+  if (currentUser && profileLink) {
+    profileLink.textContent = currentUser.username;
+    profileLink.style.display = "inline-block";
+    if (loginLink) loginLink.style.display = "none";
+    if (signupLink) signupLink.style.display = "none";
+  } else {
+    if (profileLink) profileLink.style.display = "none";
+    if (loginLink) loginLink.style.display = "inline-block";
+    if (signupLink) signupLink.style.display = "inline-block";
+  }
+}
+
+function logout() {
+  localStorage.removeItem("loggedInUser");
+  showToast('Logged out successfully! 👋', 1500);
+  setTimeout(() => location.reload(), 900);
+}
+
+// ---------- keyboard shortcuts & misc ----------
+function setupShortcuts() {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 's' || e.key === 'S') {
+      if (e.target.tagName !== 'INPUT') {
+        e.preventDefault();
+        const sb = document.getElementById('searchBar'); if (sb) sb.focus();
+      }
+    }
+    if (e.key === 'c' || e.key === 'C') {
+      if (e.target.tagName !== 'INPUT') {
+        e.preventDefault();
+        const toggle = document.getElementById('cart-toggle');
+        if (toggle) toggle.click();
+      }
+    }
+    if (e.key === 'Escape') {
+      const sidebar = document.getElementById('cart-sidebar');
+      if (sidebar) sidebar.classList.remove('open');
+      document.body.classList.remove('cart-open');
+    }
+  });
+}
+
+// smooth scroll anchors
+function setupSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+}
+
+// Navbar color on scroll (safe guards)
+function setupScrollEffects() {
+  window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+    if (window.scrollY > 100) {
+      navbar.style.background = 'rgba(0,0,0,0.95)';
+      navbar.style.backdropFilter = 'blur(20px)';
+    } else {
+      navbar.style.background = 'rgba(0,0,0,0.9)';
+      navbar.style.backdropFilter = 'blur(20px)';
+    }
+  });
+}
+
+// ---------- initialization ----------
+function init() {
+  // load data
+  allSneakers = sneakerData.slice();
+  filteredSneakers = allSneakers.slice();
+  loadCartFromStorage();
+
+  // update UI & features
+  updateNavbarUser();
   updateCartCount();
-  renderCartPage();
-});
+  renderSneakers(allSneakers);
+  renderCart();        // small cart (sidebar)
+  renderCartPage();    // if on cart page
+  setupSlideshow();
+  setupSearch();
+  setupNavFiltering();
+  setupShortcuts();
+  setupSmoothScroll();
+  setupScrollEffects();
+
+  // welcome toast (only on index)
+  if (document.getElementById('all-products')) showToast('Welcome to LaceUp! 👟', 1800);
+}
+
+// run init after DOM ready
+document.addEventListener('DOMContentLoaded', init);
