@@ -1253,3 +1253,33 @@ html {
 body.cart-open {
   overflow: hidden;
 }
+
+/* Style for custom language dropdown */
+.language-switcher {
+  background-color: #000;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+.language-switcher:hover {
+  background-color: #222;
+}
+
+/* Hide Google’s original dropdown and branding */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-gadget,
+.goog-te-combo,
+.goog-logo-link {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+body {
+  top: 0px !important;
+  position: relative;
+}
