@@ -307,10 +307,34 @@ const sneakerData = [
   },
 ];
 
+function updateNavbarUser() {
+  const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  const profileLink = document.getElementById("profile-link");
+  const loginLink = document.getElementById("login-link");
+  const signupLink = document.getElementById("signup-link");
+
+  if (currentUser && profileLink) {
+    // Show username instead of "Profile"
+    profileLink.textContent = currentUser.username;
+    profileLink.style.display = "inline-block";
+
+    // Hide login/signup buttons
+    if (loginLink) loginLink.style.display = "none";
+    if (signupLink) signupLink.style.display = "none";
+  } else {
+    // If logged out
+    if (profileLink) profileLink.style.display = "none";
+    if (loginLink) loginLink.style.display = "inline-block";
+    if (signupLink) signupLink.style.display = "inline-block";
+  }
+}
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
+  updateNavbarUser(); // NEW — run before anything else
+
   allSneakers = sneakerData;
+
   filteredSneakers = allSneakers;
   updateCartCount();
   renderCart();
