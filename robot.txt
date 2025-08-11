@@ -6,4 +6,4 @@ Disallow: /checkout.html
 Disallow: /cart.html
 Disallow: /admin.html
 
-Sitemap: https://waziraditya.github.io/lace-up/sitemap.xml
+Sitemap: https://waziraditya.github.io/laceup/sitemap.xml

@@ -430,10 +430,10 @@ function renderSneakers(sneakers) {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      <a href="product.html?id=${sneaker.id}" style="text-decoration:none; color:inherit;">
+      <a href="product.html?brand=${encodeURIComponent(sneaker.brand)}&id=${encodeURIComponent(sneaker.id)}" style="text-decoration:none; color:inherit;">
         <img src="${sneaker.image}" alt="${escapeHtml(sneaker.alt)}" loading="lazy" />
-        <div class="brand">${escapeHtml(sneaker.brand)}</div>
-        <h3>${escapeHtml(sneaker.title)}</h3>
+          <div class="brand">${escapeHtml(sneaker.brand)}</div>
+          <h3>${escapeHtml(sneaker.title)}</h3>
         <div style="font-size:0.95rem; color:#bbb; margin-bottom:4px;">${escapeHtml(sneaker.alt)}</div>
       </a>
       <p class="price">₹${Number(sneaker.price).toLocaleString()}</p>
