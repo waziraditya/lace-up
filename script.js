@@ -410,14 +410,14 @@ function renderSneakers(sneakers) {
     card.className = "card";
     card.innerHTML = `
   card.innerHTML = `
-  <a href="product.html?id=${sneaker.id}">
-    <img src="${sneaker.image}" alt="${sneaker.title}" loading="lazy" />
-    <div class="brand">${sneaker.brand}</div>
-    <h3>${sneaker.title}</h3>
-  </a>
-  <p class="price">₹${sneaker.price.toLocaleString()}</p>
-  <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin: 10px 0;">${sneaker.description}</p>
-  <button onclick="addToCart(${sneaker.id})">Add to Cart 🛒</button>
+      <a href="product.html?id=${sneaker.id}">
+       <img src="${sneaker.image}" alt="${sneaker.title}" loading="lazy" />
+       <div class="brand">${sneaker.brand}</div>
+       <h3>${sneaker.title}</h3>
+      </a>
+      <p class="price">₹${sneaker.price.toLocaleString()}</p>
+      <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin: 10px 0;">${sneaker.description}</p>
+      <button onclick="addToCart(${sneaker.id})">Add to Cart 🛒</button>
 `;
 
 
