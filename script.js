@@ -438,7 +438,7 @@ function renderSneakers(sneakers) {
       </a>
       <p class="price">₹${Number(sneaker.price).toLocaleString()}</p>
       <p style="color: rgba(255,255,255,0.7); font-size:0.9rem; margin:10px 0;">${escapeHtml(sneaker.description || '')}</p>
-      <button class="card-add-btn" data-id="${sneaker.id}">Add to Cart 🛒</button>
+      <button class="card-add-btn" data-id="${sneaker.id}">Add to Cart</button>
     `;
 // ...existing code...
     container.appendChild(card);
@@ -533,7 +533,7 @@ function addToCart(e = null, sneakerId, options = {}) {
   setTimeout(() => {
     if (btn) {
       btn.disabled = false;
-      btn.textContent = btn.dataset.origText || 'Add to Cart 🛒';
+      btn.textContent = btn.dataset.origText || 'Add to Cart';
       btn.style.transform = '';
       btn.style.background = '';
       btn.style.color = '';
