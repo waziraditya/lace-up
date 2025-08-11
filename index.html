@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LaceUp - Premium Sneakers</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="navbar">
+  <div class="logo">👟 LaceUp</div>
+  <nav class="nav-menu">
+    <a href="#" data-categeory="all">All</a>
+    <a href="#" data-brand="men">Men</a>
+    <a href="#" data-brand="women">Women</a>
+    <a href="#" data-brand="kids">Kids</a>
+    <a href="#" data-brand="indian">Indian</a>
+    <a href="#" data-brand="sustainable">Sustainable</a>
+    <a href="#" data-brand="accessories">Accessories</a>
+    </nav>
+  <div class="nav-right">
+    <span id="user-info"></span>
+    <a href="profile.html" id="profile-link" style="display: none;">Profile</a>
+    <a href="login.html" id="login-link">Login</a>
+    <a href="signup.html" id="signup-link">Signup</a>
+    <div id="cart-toggle" class="cart-icon">🛒 <span id="cart-count">0</span></div>
+  </div>
+</header>
+
+  <section class="slideshow">
+    <div class="slider" id="slider">
+      <div class="slide active">
+        <video autoplay muted loop playsinline>
+        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4" />
+        </video>
+        <div class="slide-text">Step Into Style - Premium Sneakers Collection</div>
+      </div>
+    </div>
+    <button class="slide-nav slide-prev" id="prevSlide">‹</button>
+    <button class="slide-nav slide-next" id="nextSlide">›</button>
+    <div class="slideshow-controls" id="slideControls"></div>
+  </section>
+
+  <section class="category-section">
+    <h2>Latest Drops</h2>
+    <div class="search-container">
+      <input type="text" class="search-bar" id="searchBar" placeholder="Search sneakers by brand, model, or style...">
+      <button class="search-btn" id="searchBtn">🔍</button>
+    </div>
+    <div id="all-products" class="cards">
+      <div class="products-loading">
+        <div class="loading"></div>
+        <span style="margin-left: 10px;">Loading fresh kicks...</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>LaceUp</h3>
+      <p>Premium sneakers for the modern sneakerhead.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">FAQ</a>
+      <a href="#">Returns</a>
+    </div>
+    <div class="footer-section">
+      <h4>Follow Us</h4>
+      <p>📘 Facebook</p>
+      <p>📷 Instagram</p>
+      <p>🐦 Twitter</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2025 LaceUp. All rights reserved.
+  </div>
+</footer>
+
+
+  <aside id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button id="close-cart">✖</button>
+    </div>
+    <div id="cart-items"></div>
+    <div class="cart-footer">
+      <p>Total: ₹<span id="cart-total">0</span></p>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>

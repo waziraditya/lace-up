@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - LaceUp</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <style>
+    .demo-info {
+      margin-top: 20px;
+      padding: 10px;
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 8px;
+      border-left: 3px solid #667eea;
+    }
+    .demo-info small {
+      color: #667eea;
+    }
+  </style>
+  <div class="auth-form">
+    <h2>Welcome Back! 👟</h2>
+    <input type="text" id="login-username" placeholder="Enter your username" required />
+    <input type="password" id="login-password" placeholder="Enter your password" required />
+    <button onclick="login()" id="loginBtn">
+      <span class="btn-text">Login</span>
+      <div class="loading" id="loginLoading" style="display: none;"></div>
+    </button>
+    <p>Don't have an account? <a href="signup.html">Create one here</a></p>
+    <div class="demo-info">
+      <small>👟 Step back into your sneaker journey</small>
+    </div>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById("login-username").value.trim();
+      const password = document.getElementById("login-password").value.trim();
+      const loginBtn = document.getElementById("loginBtn");
+      const btnText = loginBtn.querySelector('.btn-text');
+      const loading = document.getElementById('loginLoading');
+
+      if (!username || !password) {
+        showError("Please fill in all fields");
+        return;
+      }
+
+      // Show loading
+      btnText.style.display = 'none';
+      loading.style.display = 'inline-block';
+      loginBtn.disabled = true;
+
+      // Simulate API call delay
+      setTimeout(() => {
+        let users = JSON.parse(localStorage.getItem("users") || "[]");
+        const user = users.find(u => u.username === username && u.password === password);
+
+        if (!user) {
+          showError("Invalid username or password");
+          btnText.style.display = 'inline';
+          loading.style.display = 'none';
+          loginBtn.disabled = false;
+          return;
+        }
+
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
+        showSuccess("Login successful! Redirecting...");
+        
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1500);
+      }, 1000);
+    }
+
+    function showError(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast error';
+      toast.textContent = message;
+      toast.style.background = 'linear-gradient(45deg, #ff6b6b, #ee5a52)';
+      document.body.appendChild(toast);
+      
+      setTimeout(() => toast.classList.add('show'), 100);
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => document.body.removeChild(toast), 300);
+      }, 3000);
+    }
+
+    function showSuccess(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast success';
+      toast.textContent = message;
+      toast.style.background = 'linear-gradient(45deg, #51cf66, #40c057)';
+      document.body.appendChild(toast);
+      
+      setTimeout(() => toast.classList.add('show'), 100);
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => document.body.removeChild(toast), 300);
+      }, 3000);
+    }
+
+    // Enter key support
+    document.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        login();
+      }
+    });
+  </script>
+</body>
+</html>

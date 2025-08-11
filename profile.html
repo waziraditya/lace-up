@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile - SneakPeak</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo" onclick="window.location.href='index.html'">👟 SneakPeak</div>
+    <nav class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="profile.html" class="active">Profile</a>
+    </nav>
+    <div class="nav-right">
+      <span id="user-info"></span>
+      <a href="login.html" id="login-link">Login</a>
+      <a href="signup.html" id="signup-link">Signup</a>
+      <div id="cart-toggle" class="cart-icon">🛒 <span id="cart-count">0</span></div>
+    </div>
+  </header>
+
+  <section class="profile-section">
+    <div class="profile-container">
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <div class="avatar-circle" id="avatar-display">👤</div>
+          <button class="edit-avatar-btn" onclick="changeAvatar()">📷</button>
+        </div>
+        <div class="profile-info">
+          <h1 id="profile-name">Guest User</h1>
+          <p id="profile-email">guest@sneakpeak.com</p>
+          <div class="profile-stats">
+            <div class="stat">
+              <span class="stat-number" id="orders-count">0</span>
+              <span class="stat-label">Orders</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" id="wishlist-count">0</span>
+              <span class="stat-label">Wishlist</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" id="reviews-count">0</span>
+              <span class="stat-label">Reviews</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-content">
+        <div class="profile-tabs">
+          <button class="tab-btn active" onclick="showTab('personal')">Personal Info</button>
+          <button class="tab-btn" onclick="showTab('orders')">Order History</button>
+          <button class="tab-btn" onclick="showTab('wishlist')">Wishlist</button>
+        </div>
+
+        <div id="personal-tab" class="tab-content active">
+          <div class="profile-form">
+            <h3>Personal Information</h3>
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="full-name" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" id="phone" placeholder="Enter your phone number">
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <textarea id="address" placeholder="Enter your address" rows="3"></textarea>
+            </div>
+            <button class="save-btn" onclick="saveProfile()">Save Changes</button>
+          </div>
+        </div>
+
+        <div id="orders-tab" class="tab-content">
+          <h3>Order History</h3>
+          <div id="orders-list" class="orders-container">
+            <div class="empty-state">
+              <div class="empty-icon">📦</div>
+              <p>No orders yet</p>
+              <small>Start shopping to see your orders here</small>
+            </div>
+          </div>
+        </div>
+
+        <div id="wishlist-tab" class="tab-content">
+          <h3>My Wishlist</h3>
+          <div id="wishlist-items" class="wishlist-container">
+            <div class="empty-state">
+              <div class="empty-icon">❤️</div>
+              <p>Your wishlist is empty</p>
+              <small>Add items to your wishlist to see them here</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <aside id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button id="close-cart">✖</button>
+    </div>
+    <div id="cart-items"></div>
+    <div class="cart-footer">
+      <p>Total: ₹<span id="cart-total">0</span></p>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+  <script>
+    // Profile-specific functionality
+    let currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    let userProfile = JSON.parse(localStorage.getItem("userProfile")) || {};
+
+    // Redirect if not logged in
+    if (!currentUser) {
+      showToast('Please login to access your profile', 3000);
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 2000);
+    }
+
+    // Initialize profile
+    document.addEventListener('DOMContentLoaded', () => {
+      if (currentUser) {
+        loadProfile();
+        loadOrders();
+        loadWishlist();
+      }
+    });
+
+    function loadProfile() {
+      document.getElementById('profile-name').textContent = currentUser.fullName || currentUser.username;
+      document.getElementById('profile-email').textContent = currentUser.email || 'No email provided';
+      
+      // Load saved profile data
+      if (userProfile[currentUser.username]) {
+        const profile = userProfile[currentUser.username];
+        document.getElementById('full-name').value = profile.fullName || '';
+        document.getElementById('email').value = profile.email || '';
+        document.getElementById('phone').value = profile.phone || '';
+        document.getElementById('address').value = profile.address || '';
+        
+        // Update avatar if exists
+        if (profile.avatar) {
+          document.getElementById('avatar-display').textContent = profile.avatar;
+        }
+      }
+      
+      // Update stats
+      updateStats();
+    }
+
+    function saveProfile() {
+      const fullName = document.getElementById('full-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+
+      if (!fullName || !email) {
+        showToast('Please fill in required fields', 3000);
+        return;
+      }
+
+      // Save to profile storage
+      if (!userProfile[currentUser.username]) {
+        userProfile[currentUser.username] = {};
+      }
+      
+      userProfile[currentUser.username] = {
+        ...userProfile[currentUser.username],
+        fullName,
+        email,
+        phone,
+        address,
+        lastUpdated: new Date().toISOString()
+      };
+
+      localStorage.setItem('userProfile', JSON.stringify(userProfile));
+      
+      // Update current user data
+      currentUser.fullName = fullName;
+      currentUser.email = email;
+      localStorage.setItem('loggedInUser', JSON.stringify(currentUser));
+      
+      document.getElementById('profile-name').textContent = fullName;
+      document.getElementById('profile-email').textContent = email;
+      
+      showToast('Profile updated successfully! ✅', 2000);
+    }
+
+    function changeAvatar() {
+      const avatars = ['👤', '🧑', '👨', '👩', '🧔', '👱', '🧑‍💼', '👨‍💼', '👩‍💼', '🧑‍🎓', '👨‍🎓', '👩‍🎓'];
+      const currentAvatar = document.getElementById('avatar-display').textContent;
+      const currentIndex = avatars.indexOf(currentAvatar);
+      const nextIndex = (currentIndex + 1) % avatars.length;
+      const newAvatar = avatars[nextIndex];
+      
+      document.getElementById('avatar-display').textContent = newAvatar;
+      
+      // Save avatar
+      if (!userProfile[currentUser.username]) {
+        userProfile[currentUser.username] = {};
+      }
+      userProfile[currentUser.username].avatar = newAvatar;
+      localStorage.setItem('userProfile', JSON.stringify(userProfile));
+      
+      showToast('Avatar updated! 📷', 1500);
+    }
+
+    function showTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // Show selected tab
+      document.getElementById(tabName + '-tab').classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function loadOrders() {
+      const orders = JSON.parse(localStorage.getItem('userOrders')) || {};
+      const userOrders = orders[currentUser.username] || [];
+      const ordersContainer = document.getElementById('orders-list');
+      
+      if (userOrders.length === 0) {
+        ordersContainer.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">📦</div>
+            <p>No orders yet</p>
+            <small>Start shopping to see your orders here</small>
+          </div>
+        `;
+        return;
+      }
+      
+      ordersContainer.innerHTML = userOrders.map(order => `
+        <div class="order-item">
+          <div class="order-header">
+            <span class="order-id">Order #${order.id}</span>
+            <span class="order-date">${new Date(order.date).toLocaleDateString()}</span>
+          </div>
+          <div class="order-items">
+            ${order.items.map(item => `<span class="order-product">${item.title}</span>`).join(', ')}
+          </div>
+          <div class="order-total">₹${order.total.toLocaleString()}</div>
+        </div>
+      `).join('');
+    }
+
+    function loadWishlist() {
+      const wishlist = JSON.parse(localStorage.getItem('userWishlist')) || {};
+      const userWishlist = wishlist[currentUser.username] || [];
+      const wishlistContainer = document.getElementById('wishlist-items');
+      
+      if (userWishlist.length === 0) {
+        wishlistContainer.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">❤️</div>
+            <p>Your wishlist is empty</p>
+            <small>Add items to your wishlist to see them here</small>
+          </div>
+        `;
+        return;
+      }
+      
+      wishlistContainer.innerHTML = userWishlist.map(item => `
+        <div class="wishlist-item">
+          <img src="${item.image}" alt="${item.title}">
+          <div class="wishlist-info">
+            <h4>${item.title}</h4>
+            <p class="wishlist-brand">${item.brand}</p>
+            <p class="wishlist-price">₹${item.price.toLocaleString()}</p>
+          </div>
+          <button onclick="removeFromWishlist(${item.id})" class="remove-wishlist-btn">❌</button>
+        </div>
+      `).join('');
+    }
+
+    function removeFromWishlist(itemId) {
+      const wishlist = JSON.parse(localStorage.getItem('userWishlist')) || {};
+      const userWishlist = wishlist[currentUser.username] || [];
+      
+      wishlist[currentUser.username] = userWishlist.filter(item => item.id !== itemId);
+      localStorage.setItem('userWishlist', JSON.stringify(wishlist));
+      
+      loadWishlist();
+      updateStats();
+      showToast('Removed from wishlist', 2000);
+    }
+
+    function updateStats() {
+      const orders = JSON.parse(localStorage.getItem('userOrders')) || {};
+      const wishlist = JSON.parse(localStorage.getItem('userWishlist')) || {};
+      
+      const userOrders = orders[currentUser.username] || [];
+      const userWishlist = wishlist[currentUser.username] || [];
+      
+      document.getElementById('orders-count').textContent = userOrders.length;
+      document.getElementById('wishlist-count').textContent = userWishlist.length;
+      document.getElementById('reviews-count').textContent = '0'; // Placeholder
+    }
+  </script>
+</body>
+</html>
