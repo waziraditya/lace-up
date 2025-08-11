@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About Us - LaceUp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6fa;
+      margin: 0;
+      padding: 0;
+      color: #22223b;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 40px 20px;
+      border-radius: 14px;
+      box-shadow: 0 5px 20px rgba(32, 31, 45, 0.08);
+    }
+    section {
+      margin-bottom: 38px;
+    }
+    h1 {
+      color: #341f97;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+      font-size: 2em;
+    }
+    h2 {
+      color: #341f97;
+      letter-spacing: 0.03em;
+      margin-bottom: 11px;
+      font-size: 1.5em;
+    }
+    ul {
+      margin: 0 0 0 25px;
+      padding: 0;
+      font-size: 1.08em;
+    }
+    li {
+      margin-bottom: 7px;
+      line-height: 1.6;
+    }
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin-top: 12px;
+      justify-content: center;
+    }
+    .team-member {
+      background: #f2f0fb;
+      border-radius: 14px;
+      box-shadow: 0 2px 7px rgba(52, 31, 151, 0.07);
+      width: 210px;
+      padding: 30px 20px 20px;
+      text-align: center;
+      transition: box-shadow 0.28s, transform 0.28s;
+      cursor: default;
+    }
+    .team-member:hover,
+    .team-member:focus-within {
+      box-shadow: 0 8px 28px rgba(52, 31, 151, 0.18);
+      transform: translateY(-6px);
+      outline: none;
+    }
+    .team-member a {
+      display: inline-block;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 2px 13px rgba(52, 31, 151, 0.07);
+      border: 4px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+    }
+    .team-member a:hover,
+    .team-member a:focus {
+      border-color: #341f97;
+      box-shadow: 0 6px 22px rgba(52, 31, 151, 0.24);
+      outline: none;
+    }
+    .team-member img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+    .team-member h3 {
+      margin: 16px 0 6px;
+      font-size: 1.25em;
+      color: #22223b;
+    }
+    .team-member p {
+      margin: 0;
+      color: #57609b;
+      font-size: 1.05em;
+    }
+    /* Focus styles for keyboard navigation */
+    a:focus,
+    button:focus {
+      outline: 3px solid #341f97;
+      outline-offset: 2px;
+    }
+    @media (max-width: 700px) {
+      .team-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+      .container {
+        padding: 24px 2vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+
+    <!-- About Us Section -->
+    <section aria-labelledby="aboutus-title">
+      <h1 id="aboutus-title">About Us</h1>
+      <p>
+        <strong>LaceUp</strong> is your go-to online destination for sneakers, delivering the world’s top footwear brands and rare finds right to your doorstep. We believe that sneakers are for everyone—enthusiasts, collectors, athletes, and anyone who loves great style and comfort.<br><br>
+        At LaceUp, you’ll find every major sneaker brand under one roof—from timeless classics to the latest hype drops. But we’re more than just a marketplace. We empower small, sustainable brands and uniquely local makers, giving you the freedom to choose shoes that truly represent your style and values.<br><br>
+        Whether you’re sporting the latest Jordans, searching for exclusive Yeezys, or discovering handcrafted eco-friendly pairs, LaceUp makes sneaker culture accessible to all—wherever you are in the world.<br>
+      </p>
+    </section>
+
+    <section aria-labelledby="vision-title">
+      <h2 id="vision-title">Our Vision</h2>
+      <p>
+        To become the world’s most trusted and diverse online marketplace for sneakers and footwear, empowering consumers with choice and giving a global voice to small, sustainable, and indigenous brands.<br /><br />
+        We aim to break barriers—not just in fashion but in accessibility, sustainability, and opportunity.<br /><br />
+        We dream of a world where someone in a small town in India can buy the latest Yeezys or Jordans, while a customer in Los Angeles discovers handcrafted, eco-friendly shoes from Paaduks or Neemans.<br /><br />
+        We believe the next revolution in fashion e-commerce lies in inclusion, personalization, and immersive experience—and that’s exactly what LaceUp will deliver.
+      </p>
+    </section>
+
+    <section aria-labelledby="mission-title">
+      <h2 id="mission-title">Our Mission</h2>
+      <ul>
+        <li>Design an intuitive, immersive, and inclusive sneaker e-commerce platform</li>
+        <li>Bring global sneaker brands to regions they don’t currently reach</li>
+        <li>Promote unheard yet high-potential local brands to a wider audience</li>
+        <li>Enhance the customer experience with AR/VR virtual trial rooms</li>
+        <li>Enable personalization through a customization studio</li>
+        <li>Educate and engage through sneaker care and accessories</li>
+        <li>Celebrate sneakerhead culture with limited editions, hype drops, and sustainable collections</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="team-title">
+      <h2 id="team-title">Our Team</h2>
+      <div class="team-grid" id="team-grid"></div>
+    </section>
+  </div>
+
+  <script>
+    const team = [
+      {
+        name: "Aditya Wazir",
+        role: "Head of Customer Relation and Feedback",
+        img: "Images/Aditya Image.jpg",
+        linkedin: "https://www.linkedin.com/in/adityawazir/"
+      },
+      {
+        name: "Anushi Chhabra",
+        role: "Head of Operations",
+        img: "Images/Anushi Image.png",
+        linkedin: "https://www.linkedin.com/in/anushi-chhabra-5b9b64286/"
+      },
+      {
+        name: "Chhavi Panchal",
+        role: "Head of Human Resources",
+        img: "Images/chhavi image.jpg",
+        linkedin: "https://www.linkedin.com/in/chhavi-panchal-510a86288/"
+      },
+      {
+        name: "Divanshi Jain",
+        role: "Head of Technology",
+        img: "Images/Divanshi Image 3.jpg",
+        linkedin: "https://www.linkedin.com/in/chhavi-panchal-510a86288/"
+      },
+      {
+        name: "Harris Chaudhary",
+        role: "Head of Supply Chain",
+        img: "Images/Harris-Image.jpeg",
+        linkedin: "https://www.linkedin.com/in/harris-chaudhary-377255204/"
+      },
+      {
+        name: "Sakinala Rechita Nityashree",
+        role: "Head of Finance",
+        img: "Images/Rechita Image.jpg",
+        linkedin: "https://www.linkedin.com/in/rechita-nityashree-sakinala-a29857287/"
+      },
+      {
+        name: "Tamanna",
+        role: "Head of Marketing",
+        img: "Images/Tamanna Image.jpg",
+        linkedin: "https://www.linkedin.com/in/tamanna-kumar-95631b1b7/"
+      },
+      {
+        name: "Umang Agarwal",
+        role: "Head of Advertising",
+        img: "Images/Umang Image.jpg",
+        linkedin: "https://www.linkedin.com/in/umang-agarwal-144068254/"
+      }
+    ];
+
+    const grid = document.getElementById("team-grid");
+    team.forEach(member => {
+      const div = document.createElement("div");
+      div.className = "team-member";
+      div.innerHTML = `
+        <a href="${member.linkedin}" target="_blank" rel="noopener noreferrer" aria-label="Visit ${member.name}'s LinkedIn Profile" title="Visit ${member.name}'s LinkedIn Profile">
+          <img src="${member.img}" alt="Photo of ${member.name}" />
+        </a>
+        <h3>${member.name}</h3>
+        <p>${member.role}</p>
+      `;
+      grid.appendChild(div);
+    });
+  </script>
+</body>
+</html>
