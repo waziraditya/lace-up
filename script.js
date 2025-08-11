@@ -413,7 +413,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Cart functionality
 function updateCartCount() {
-  document.getElementById("cart-count").innerText = cart.length;
+  const countElem = document.getElementById('cart-count');
+  if (countElem) {
+    countElem.textContent = cart.length;
+  }
 }
 
 function saveCart() {
@@ -494,9 +497,16 @@ function renderSneakers(sneakers) {
 
 // Improved addToCart with visible button feedback (used by index cards)
 // Usage in card HTML: onclick="addToCart(event, 3)"
-function addToCart(e, sneakerId) {
-  // determine the button element that was clicked
-  const btn = (e && e.currentTarget) ? e.currentTarget : (e && e.target) ? e.target : null;
+function addToCart(sneakerId) {
+  const sneaker = allSneakers.find(s => s.id === sneakerId);
+  if (sneaker) {
+    cart.push(sneaker);
+    localStorage.setItem('sneakCart', JSON.stringify(cart));
+    updateCartCount();
+    showToast(`Added ${sneaker.title} to cart! 🔥`, 2000);
+  }
+}
+
 
   // find sneaker data
   const sneaker = allSneakers.find(s => s.id === sneakerId);
@@ -857,4 +867,60 @@ document.addEventListener('keydown', (e) => {
     document.getElementById('cart-sidebar').classList.remove('open');
     document.body.classList.remove('cart-open');
   }
+});
+// If on cart.html, render cart contents
+function renderCartPage() {
+  const listContainer = document.getElementById('cart-items-list');
+  if (!listContainer) return; // not on cart page
+
+  const emptyState = document.getElementById('empty-cart');
+  const summary = document.getElementById('cart-summary');
+  const subtotalElem = document.getElementById('cart-subtotal');
+  const itemCountElem = document.getElementById('item-count');
+
+  listContainer.innerHTML = '';
+
+  if (cart.length === 0) {
+    emptyState.style.display = 'block';
+    summary.style.display = 'none';
+    return;
+  }
+
+  emptyState.style.display = 'none';
+  summary.style.display = 'block';
+
+  let subtotal = 0;
+  cart.forEach((item, index) => {
+    subtotal += item.price;
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <img src="${item.image}" alt="${item.title}">
+      <div class="cart-item-details">
+        <h4>${item.title}</h4>
+        <p>${item.brand}</p>
+        <p><strong>₹${item.price.toLocaleString()}</strong></p>
+        <button class="remove-btn" data-index="${index}">Remove</button>
+      </div>
+    `;
+    listContainer.appendChild(div);
+  });
+
+  subtotalElem.textContent = subtotal.toLocaleString();
+  itemCountElem.textContent = cart.length;
+
+  document.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const idx = parseInt(e.target.dataset.index);
+      cart.splice(idx, 1);
+      localStorage.setItem('sneakCart', JSON.stringify(cart));
+      updateCartCount();
+      renderCartPage();
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartCount();
+  renderCartPage();
 });
