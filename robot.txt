@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /signup.html
+Disallow: /profile.html
+Disallow: /login.html
+Disallow: /checkout.html
+Disallow: /cart.html
+Disallow: /admin.html
+
+Sitemap: https://waziraditya.github.io/lace-up/sitemap.xml
