@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,13 +98,16 @@
   </header>
 
   <section class="cart-page">
+    <div id="checkout-mode-indicator" style="display:none; background: linear-gradient(45deg, #ff6b35, #f7931e); color: black; padding: 10px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; text-align: center;">
+      ⚡ Express Checkout - Proceeding directly to purchase
+    </div>
     <div class="cart-items" id="cart-items-list">
       <!-- Items injected by JS -->
     </div>
     <aside class="cart-summary" id="cart-summary" style="display:none;">
       <h3>Order Summary</h3>
       <p>Subtotal (<span id="item-count">0</span> items): <strong>₹<span id="cart-subtotal">0</span></strong></p>
-      <button class="checkout-btn">Proceed to Checkout</button>
+      <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
     </aside>
   </section>
 
@@ -120,7 +124,19 @@
   <script src="script.js"></script>
   <script>
     function renderCartPage() {
-      const cartData = JSON.parse(localStorage.getItem('sneakCart')) || [];
+      // Check if this is a direct checkout
+      const urlParams = new URLSearchParams(window.location.search);
+      const isDirectCheckout = urlParams.get('checkout') === 'direct';
+      
+      let cartData;
+      if (isDirectCheckout) {
+        cartData = JSON.parse(localStorage.getItem('directCheckout')) || [];
+        // Clear direct checkout data after loading
+        localStorage.removeItem('directCheckout');
+      } else {
+        cartData = JSON.parse(localStorage.getItem('sneakCart')) || [];
+      }
+      
       const listContainer = document.getElementById('cart-items-list');
       const emptyState = document.getElementById('empty-cart');
       const summary = document.getElementById('cart-summary');
@@ -137,19 +153,28 @@
 
       emptyState.style.display = 'none';
       summary.style.display = 'block';
+      
+      // Show direct checkout indicator
+      if (isDirectCheckout) {
+        const indicator = document.getElementById('checkout-mode-indicator');
+        if (indicator) indicator.style.display = 'block';
+      }
 
       let subtotal = 0;
 
+      let totalItems = 0;
       cartData.forEach((item, index) => {
-        subtotal += item.price;
+        const itemTotal = (item.price || 0) * (item.qty || 1);
+        subtotal += itemTotal;
+        totalItems += (item.qty || 1);
         const div = document.createElement('div');
         div.className = 'cart-item';
         div.innerHTML = `
           <img src="${item.image}" alt="${item.title}">
           <div class="cart-item-details">
             <h4>${item.title}</h4>
-            <p>${item.brand}</p>
-            <p><strong>₹${item.price.toLocaleString()}</strong></p>
+            <p>${item.brand} • Qty: ${item.qty || 1}</p>
+            <p><strong>₹${item.price.toLocaleString()} × ${item.qty || 1} = ₹${itemTotal.toLocaleString()}</strong></p>
             <div class="cart-item-actions">
               <button class="remove-btn" data-index="${index}">Remove</button>
             </div>
@@ -159,17 +184,37 @@
       });
 
       subtotalElem.textContent = subtotal.toLocaleString();
-      itemCountElem.textContent = cartData.length;
+      itemCountElem.textContent = totalItems;
 
       document.querySelectorAll('.remove-btn').forEach(btn => {
         btn.addEventListener('click', e => {
           const idx = parseInt(e.target.dataset.index);
           cartData.splice(idx, 1);
-          localStorage.setItem('sneakCart', JSON.stringify(cartData));
-          updateCartCount();
-          renderCartPage();
+          
+          if (isDirectCheckout) {
+            // For direct checkout, just re-render without saving to cart
+            renderCartPage();
+          } else {
+            localStorage.setItem('sneakCart', JSON.stringify(cartData));
+            // Update cart count after modifying localStorage
+            const countElem = document.getElementById('cart-count');
+            if (countElem) {
+              const totalQty = cartData.reduce((sum, item) => sum + (item.qty || 1), 0);
+              countElem.textContent = totalQty;
+            }
+            renderCartPage();
+          }
         });
       });
+    }
+
+    function proceedToCheckout() {
+      const cartData = JSON.parse(localStorage.getItem('sneakCart')) || [];
+      if (cartData.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      window.location.href = 'checkout.html';
     }
 
     document.addEventListener('DOMContentLoaded', () => {
