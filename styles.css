@@ -47,30 +47,35 @@ body {
 
 .logo {.logo {
   display: flex;
-  align-items: center; /* Vertically align logo and text */
-  gap: 8px; /* Space between image and text */
+  align-items: center;     /* vertical center alignment */
+  flex-direction: row-reverse; /* image on right, text on left */
+  gap: 10px;               /* space between text and image */
 }
 
 .logo-img {
-  height: 40px; /* Default height */
-  width: auto; /* Keep aspect ratio */
+  height: 50px;    /* adjust size */
+  width: 50px;     /* make it square for a perfect circle */
+  border-radius: 50%; /* ensures it looks circular */
+  object-fit: cover; /* keeps image inside circle */
 }
 
-/* Text styling */
 .logo-text {
   font-size: 1.5rem;
   font-weight: bold;
+  line-height: 1; /* ensures text is truly centered */
 }
 
-/* Adjust for mobile */
+/* Mobile adjustments */
 @media (max-width: 767px) {
   .logo-img {
-    height: 30px; /* Smaller logo on mobile */
+    height: 40px;
+    width: 40px;
   }
   .logo-text {
-    font-size: 1.2rem; /* Slightly smaller text */
+    font-size: 1.2rem;
   }
 }
+
 
   font-weight: 900;
   font-size: 28px;
