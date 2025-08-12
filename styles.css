@@ -38,11 +38,13 @@ body {
   background: rgba(0, 0, 0, 0.9);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 20px 40px;
+  padding: 10px 20px;
   position: sticky;
   top: 0;
   z-index: 100;
   transition: all 0.3s ease;
+  height: 80px;  /* or any height you prefer */
+  overflow: hidden;
 }
 
 .logo {
@@ -1456,7 +1458,7 @@ body {
 
         .faq-answer {
             padding: 20px;
-            background: white;
+            background: black;
             border-top: 1px solid #ecf0f1;
         }
 
