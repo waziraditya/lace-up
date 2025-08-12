@@ -12,7 +12,23 @@
   <option value="hi">🌐 हिंदी</option>
   <option value="ml">🌐 മലയാളം</option>
 </select>
-
+<nav class="navbar">
+    <a href="index.html" class="logo"> LaceUp</a>  <!-- Added href to link back to index -->
+    <div class="nav-menu">
+        <a href="index.html?tab=all" data-category="all">All</a>
+        <a href="index.html?tab=men" data-category="men">Men</a>
+        <a href="index.html?tab=women" data-category="women">Women</a>
+        <a href="index.html?tab=kids" data-category="kids">Kids</a>
+        <a href="index.html?tab=indian" data-category="indian">Indian</a>
+        <a href="index.html?tab=sustainable" data-category="sustainable">Sustainable</a>
+        <a href="index.html?tab=accessories" data-category="accessories">Accessories</a>
+    </div>
+    <div class="nav-right">
+        <a href="#" id="login-link">Login</a>  <!-- Assuming you have login/signup modals or pages -->
+        <a href="#" id="signup-link">Signup</a>
+        <div class="cart-icon" id="cart-toggle">🛒 0</div>  <!-- Cart icon, count updated by JS -->
+    </div>
+</nav>
 <div class="container" role="main">
     <!-- About Us Section -->
     <section aria-labelledby="aboutus-title">
