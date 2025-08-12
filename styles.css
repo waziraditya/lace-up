@@ -62,7 +62,7 @@ body {
 .logo-text {
   font-size: 1.5rem;
   font-weight: bold;
-  line-height: 4; /* ensures text is truly centered */
+  line-height: 15; /* ensures text is truly centered */
 }
 
 /* Mobile adjustments */
