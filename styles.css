@@ -47,26 +47,28 @@ body {
 
 .logo {.logo {
   display: flex;
-  align-items: center;
-  justify-content: center; /* center horizontally */
+  align-items: center; /* Vertically align logo and text */
+  gap: 8px; /* Space between image and text */
 }
 
 .logo-img {
-  max-width: 100%;   /* prevents overflow */
-  height: auto;      /* keeps aspect ratio */
+  height: 40px; /* Default height */
+  width: auto; /* Keep aspect ratio */
 }
 
-/* Desktop size */
-@media (min-width: 768px) {
-  .logo-img {
-    max-height: 60px;
-  }
+/* Text styling */
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-/* Mobile size */
+/* Adjust for mobile */
 @media (max-width: 767px) {
   .logo-img {
-    max-height: 40px;
+    height: 30px; /* Smaller logo on mobile */
+  }
+  .logo-text {
+    font-size: 1.2rem; /* Slightly smaller text */
   }
 }
 
