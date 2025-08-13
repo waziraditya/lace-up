@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dke5q7i2l/image/upload/v1754965435/owgxi3g84tmn9ndlhlvb.png">
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z8VB24K7D8"></script>
+<link href="https://res.cloudinary.com/dke5q7i2l/image/upload/v1754965435/owgxi3g84tmn9ndlhlvb.png" rel="icon" type="image/png"/>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Z8VB24K7D8"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -11,124 +12,508 @@
 
   gtag('config', 'G-Z8VB24K7D8');
 </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LaceUp Admin Panel</title>
-    <link rel="stylesheet" href="admin-styles.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LaceUp Admin Panel</title>
+<link href="admin-styles.css" rel="stylesheet"/>
 </head>
 <body>
-    <!-- Language Switcher -->
+<!-- Language Switcher -->
 <div style="text-align: right; margin: 10px;">
-  <label for="languageSelect" style="color: white; margin-right: 5px;">🌐 Change Language:</label>
-  <select id="languageSelect" class="language-switcher">
-    <option value="en">🌐 English</option>
-    <option value="hi">🌐 हिंदी</option>
-    <option value="ml">🌐 മലയാളം</option>
-  </select>
+<label for="languageSelect" style="color: white; margin-right: 5px;">🌐 Change Language:</label>
+<select class="language-switcher" id="languageSelect">
+<option value="en">🌐 English</option>
+<option value="hi">🌐 हिंदी</option>
+<option value="ml">🌐 മലയാളം</option>
+</select>
 </div>
-
 <!-- Hidden container for Google Translate -->
 <div id="dummy_translate_container" style="display: none;"></div>
+<div class="login-form" id="loginSection">
+<h2>Administrator Login</h2>
+<form id="adminLoginForm">
+<div class="form-group">
+<input id="adminId" placeholder="Administrator ID" required="" type="text"/>
+</div>
+<div class="form-group">
+<input id="adminPassword" placeholder="Password" required="" type="password"/>
+</div>
+<button class="login-btn" type="submit">Login</button>
+</form>
+</div>
+<div class="admin-content" id="adminContent">
+<h1>👟 LaceUp Hidden Page</h1>
+<section>
+<h2>About LaceUp</h2>
+<p>LaceUp is a dynamic online platform that celebrates the global sneaker culture by offering a diverse marketplace featuring premium sneakers from every major brand. Our mission is to bridge the gap between sneaker enthusiasts worldwide and bring together a vast selection of authentic footwear that caters to style, performance, and sustainability. From iconic global giants to small-scale Indian artisans, LaceUp empowers consumers with choice and accessibility, no matter where they are.</p>
+</section>
+<section>
+<h2>Philosophy behind LaceUp</h2>
+<p>The idea of LaceUp was born out of a passionate conversation among eight sneaker lovers who realized a critical gap: millions of sneakerheads, especially in India, find it challenging to access international sneaker drops and limited editions. Simultaneously, promising local footwear brands struggle to gain visibility outside their immediate geography. This shared insight sparked the vision of a platform that does more than just sell shoes—it connects cultures, stories, and movements through sneakers.</p>
+</section>
+<section>
+<h2>Colour Scheme</h2>
+<p>LaceUp's color scheme combines sleek black and vibrant orange, deliberately chosen to captivate Generation Z. Black provides a bold, sophisticated, and timeless backdrop that enhances the presentation of our products, while orange injects energetic, youthful vibrancy that evokes excitement and creativity. This powerful contrast resonates with Gen Z's values of authenticity, innovation, and self-expression, drawing them into an immersive and engaging shopping experience.</p>
+</section>
+<section>
+<h2>The Divisions of Shoe Collection</h2>
+<ul>
+<li><strong>Men:</strong> Classic and trending sneakers crafted for men, ranging from athletic to casual and streetwear.</li>
+<li><strong>Women:</strong> The latest and most stylish sneakers designed to empower women's fashion and performance.</li>
+<li><strong>Kids:</strong> Comfortable, durable, and fun footwear to support children's active lifestyles.</li>
+</ul>
+<p>Each division offers an extensive assortment catering to diverse tastes, occasions, and needs, ensuring that every customer finds the perfect fit.</p>
+</section>
+<section>
+<h2>Why Choose LaceUp?</h2>
+<p>LaceUp stands apart by providing a seamless, immersive, and personalized sneaker shopping experience. Our platform goes beyond the conventional, featuring AR/VR virtual trial rooms, customization studios, and curated sneaker care accessories. We prioritize sustainability and inclusion by spotlighting indigenous and eco-friendly brands alongside international favorites. With continuous hype drops, rare collections, and a commitment to authenticity, LaceUp is the trusted choice for sneaker enthusiasts worldwide.</p>
+</section>
+<section>
+<h2>USP of LaceUp</h2>
+<ul>
+<li><strong>Global Reach:</strong> Access to international sneaker brands previously unreachable in many regions.</li>
+<li><strong>Empowerment of Local Brands:</strong> Giving high-potential Indian and sustainable brands a global voice.</li>
+<li><strong>Community Integration:</strong> Celebrating sneakerhead culture with limited editions and fresh releases.</li>
+<li><strong>Sustainability Focus:</strong> Offering eco-friendly and handcrafted options promoting environmental responsibility.</li>
+</ul>
+</section>
+<section>
+<h2>Team Members</h2>
+<p>The powerhouse behind LaceUp is a team of eight dedicated individuals with diverse expertise:</p>
+<div class="team-grid">
+<div class="team-member">
+<h4>Aditya Wazir</h4>
+<p>Head of Customer Relation and Feedback</p>
+</div>
+<div class="team-member">
+<h4>Anushi Chhabra</h4>
+<p>Head of Operations</p>
+</div>
+<div class="team-member">
+<h4>Chhavi Panchal</h4>
+<p>Head of Human Resources</p>
+</div>
+<div class="team-member">
+<h4>Divanshi Jain</h4>
+<p>Head of Technology</p>
+</div>
+<div class="team-member">
+<h4>Harris Chaudhary</h4>
+<p>Head of Supply Chain</p>
+</div>
+<div class="team-member">
+<h4>Sakinala Rechita Nityashree</h4>
+<p>Head of Finance</p>
+</div>
+<div class="team-member">
+<h4>Tamanna</h4>
+<p>Head of Marketing</p>
+</div>
+<div class="team-member">
+<h4>Umang Agarwal</h4>
+<p>Head of Advertising</p>
+</div>
+</div>
+</section>
+<section><h2>📋 WBD Project Checklist</h2><h1>WBD Project Requirements</h1><div class="container">
+<div class="column">
+<h2>📋 Project Setup &amp; Documentation</h2>
+<ul>
+<li><span class="task-text"><strong>Table with team number, member names, roll numbers</strong></span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Stakeholders listed</strong></span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Submission</strong>: Complete &amp; submit before deadline</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+</ul>
+<h2>🏗️ Core Technical Requirements</h2>
+<ul>
+<li><span class="task-text"><strong>Stack</strong>: Use HTML, CSS, JavaScript</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Page Count</strong>: 5–6 main pages</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Semantic HTML</strong>: Use &lt;header&gt;, &lt;footer&gt;, &lt;nav&gt;, etc.</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Central CSS</strong>: Single global stylesheet</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Framework Use</strong>: Bootstrap (or approved alternative)</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Accessible Forms &amp; Validation</strong></span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+</ul>
+<h2>🔒 Security &amp; Configuration Files</h2>
+<ul>
+<li><span class="task-text"><strong>Security.txt</strong>: At site root</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Robots.txt</strong>: At site root</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>HTTPS (SSL)</strong>: Serve site securely</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+</ul>
+<h2>🔐 Hidden/Instructors-only Page</h2>
+<ul>
+<li><span class="task-text"><strong>Access Restriction</strong>: Instructor only</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Handwritten HTML</strong>: No auto-generation</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Team Table</strong>: Members &amp; roles listed</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Testimonial</strong>: Added</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Consumer Profile</strong>: Who are you catering to?</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
 
-    <div id="loginSection" class="login-form">
-        <h2>Administrator Login</h2>
-        <form id="adminLoginForm">
-            <div class="form-group">
-                <input type="text" id="adminId" placeholder="Administrator ID" required>
-            </div>
-            <div class="form-group">
-                <input type="password" id="adminPassword" placeholder="Password" required>
-            </div>
-            <button type="submit" class="login-btn">Login</button>
-        </form>
-    </div>
+<li><span class="task-text"><strong>Design Philosophy</strong>: Written in the Hidden page</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Philosophy of logo</strong>: Documented reasoning behind logo design</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Survey</strong>: Survey for design</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+</ul></div>
+<div class="column">
+<h2>🎨 Design &amp; User Experience</h2>
+<ul>
+<li><span class="task-text"><strong>Consistent Design</strong>: Uniform look &amp; documented method</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Mobile Responsive</strong>: Works on phones &amp; tablets</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Favicon</strong>: Add favicon</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Icons on Links</strong>: Icon for every navigation/action link</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+</ul>
+<h2>♿ Accessibility &amp; Performance</h2>
+<ul>
+<li><span class="task-text"><strong>Accessibility</strong>: Screen-readable &amp; accessible</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Performance</strong>: Optimized for fast rendering</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Images</strong>: Optimized image on every page</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Image Optimization</strong>: Documented</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Figure Labelling</strong>: "Lower is better" / "Higher is better"</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+</ul>
+<h2>🔍 SEO &amp; Marketing</h2>
+<ul>
+<li><span class="task-text"><strong>SEO Keywords</strong>: Selected with reasoning</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>SEO Ranking Check</strong>: Recorded</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Sitemap</strong>: HTML or XML created</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Social Buttons</strong>: Implemented</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+</ul>
 
-    <div id="adminContent" class="admin-content">
-        <h1>👟 LaceUp Hidden Page</h1>
-        
-        <section>
-            <h2>About LaceUp</h2>
-            <p>LaceUp is a dynamic online platform that celebrates the global sneaker culture by offering a diverse marketplace featuring premium sneakers from every major brand. Our mission is to bridge the gap between sneaker enthusiasts worldwide and bring together a vast selection of authentic footwear that caters to style, performance, and sustainability. From iconic global giants to small-scale Indian artisans, LaceUp empowers consumers with choice and accessibility, no matter where they are.</p>
-        </section>
-
-        <section>
-            <h2>Philosophy behind LaceUp</h2>
-            <p>The idea of LaceUp was born out of a passionate conversation among eight sneaker lovers who realized a critical gap: millions of sneakerheads, especially in India, find it challenging to access international sneaker drops and limited editions. Simultaneously, promising local footwear brands struggle to gain visibility outside their immediate geography. This shared insight sparked the vision of a platform that does more than just sell shoes—it connects cultures, stories, and movements through sneakers.</p>
-        </section>
-
-        <section>
-            <h2>Colour Scheme</h2>
-            <p>LaceUp's color scheme combines sleek black and vibrant orange, deliberately chosen to captivate Generation Z. Black provides a bold, sophisticated, and timeless backdrop that enhances the presentation of our products, while orange injects energetic, youthful vibrancy that evokes excitement and creativity. This powerful contrast resonates with Gen Z's values of authenticity, innovation, and self-expression, drawing them into an immersive and engaging shopping experience.</p>
-        </section>
-
-        <section>
-            <h2>The Divisions of Shoe Collection</h2>
-            <ul>
-                <li><strong>Men:</strong> Classic and trending sneakers crafted for men, ranging from athletic to casual and streetwear.</li>
-                <li><strong>Women:</strong> The latest and most stylish sneakers designed to empower women's fashion and performance.</li>
-                <li><strong>Kids:</strong> Comfortable, durable, and fun footwear to support children's active lifestyles.</li>
-            </ul>
-            <p>Each division offers an extensive assortment catering to diverse tastes, occasions, and needs, ensuring that every customer finds the perfect fit.</p>
-        </section>
-
-        <section>
-            <h2>Why Choose LaceUp?</h2>
-            <p>LaceUp stands apart by providing a seamless, immersive, and personalized sneaker shopping experience. Our platform goes beyond the conventional, featuring AR/VR virtual trial rooms, customization studios, and curated sneaker care accessories. We prioritize sustainability and inclusion by spotlighting indigenous and eco-friendly brands alongside international favorites. With continuous hype drops, rare collections, and a commitment to authenticity, LaceUp is the trusted choice for sneaker enthusiasts worldwide.</p>
-        </section>
-
-        <section>
-            <h2>USP of LaceUp</h2>
-            <ul>
-                <li><strong>Global Reach:</strong> Access to international sneaker brands previously unreachable in many regions.</li>
-                <li><strong>Empowerment of Local Brands:</strong> Giving high-potential Indian and sustainable brands a global voice.</li>
-                <li><strong>Community Integration:</strong> Celebrating sneakerhead culture with limited editions and fresh releases.</li>
-                <li><strong>Sustainability Focus:</strong> Offering eco-friendly and handcrafted options promoting environmental responsibility.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Team Members</h2>
-            <p>The powerhouse behind LaceUp is a team of eight dedicated individuals with diverse expertise:</p>
-            <div class="team-grid">
-                <div class="team-member">
-                    <h4>Aditya Wazir</h4>
-                    <p>Head of Customer Relation and Feedback</p>
-                </div>
-                <div class="team-member">
-                    <h4>Anushi Chhabra</h4>
-                    <p>Head of Operations</p>
-                </div>
-                <div class="team-member">
-                    <h4>Chhavi Panchal</h4>
-                    <p>Head of Human Resources</p>
-                </div>
-                <div class="team-member">
-                    <h4>Divanshi Jain</h4>
-                    <p>Head of Technology</p>
-                </div>
-                <div class="team-member">
-                    <h4>Harris Chaudhary</h4>
-                    <p>Head of Supply Chain</p>
-                </div>
-                <div class="team-member">
-                    <h4>Sakinala Rechita Nityashree</h4>
-                    <p>Head of Finance</p>
-                </div>
-                <div class="team-member">
-                    <h4>Tamanna</h4>
-                    <p>Head of Marketing</p>
-                </div>
-                <div class="team-member">
-                    <h4>Umang Agarwal</h4>
-                    <p>Head of Advertising</p>
-                </div>
-            </div>
-        </section>
-        
-        <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
-
-    <script>
+<h2>🚀 Hosting &amp; Deployment</h2>
+<ul>
+<li><span class="task-text"><strong>Public Availability</strong>: Site &amp; code publicly accessible</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Public URL</strong>: For robots.txt provided</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>Ngrok Hosting</strong>: Temporary testing via ngrok</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+<option value="attached">Attached</option>
+</select>
+</div>
+</li>
+</ul>
+<h2>🎯 Special Features</h2>
+<ul>
+<li><span class="task-text"><strong>Google Map</strong>: On "About Us" page</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+<li><span class="task-text"><strong>LinkedIn Profile Link</strong>: Optional</span>
+<div class="status-dropdown">
+<select>
+<option value="not-applicable">Not applicable</option>
+<option selected="selected" value="done">Done</option>
+<option value="to-be-done">To be done</option>
+</select>
+</div>
+</li>
+</ul>
+</div>
+</div></section><button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+<script>
         const ADMIN_ID = 'teamlaceup';
         const ADMIN_PASSWORD = '1234';
 
@@ -149,7 +534,7 @@
             document.getElementById('adminLoginForm').reset();
         }
     </script>
-    <script type="text/javascript">
+<script type="text/javascript">
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({
       pageLanguage: 'en',
@@ -175,10 +560,9 @@
     }
   });
 </script>
-
 <!-- Load Google Translate -->
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <div class="footer-bottom">© 2025 LaceUp — All rights reserved</div>
-
+<div class="footer-bottom">© 2025 LaceUp — All rights reserved</div>
 </body>
 </html>
+
