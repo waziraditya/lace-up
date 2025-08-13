@@ -11,6 +11,54 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
+/* Center the heading */
+h2 {
+  text-align: center;
+  margin-top: 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* Table Styling - matches site theme */
+.team-table {
+  width: auto; /* Auto size based on content */
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-left: auto; /* Center horizontally */
+  margin-right: auto; /* Center horizontally */
+  background-color: #1a1a1a; /* Matches your dark background */
+  color: #ffffff; /* Matches site text color */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px; /* Same as your base text size */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Keep corners clean */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Soft shadow */
+}
+
+.team-table th,
+.team-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #333; /* Subtle row divider */
+}
+
+.team-table th {
+  background-color: #0f0f0f; /* Darker header row */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.team-table tr:hover {
+  background-color: #262626; /* Slight hover effect for rows */
+}
+
+.team-table td {
+  vertical-align: middle;
+}
+
 
 /* Admin Login Form */
 .login-form {
