@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Customer Stories - LaceUp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Global styles only -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Language Switcher (matches your existing pattern) -->
+<select id="languageSelect" class="language-switcher">
+  <option value="en">🌐 English</option>
+  <option value="hi">🌐 हिंदी</option>
+  <option value="ml">🌐 മലയാളം</option>
+</select>
+
+<!-- ===== NAVBAR (copied from your site and extended with Reviews link) ===== -->
+<nav class="navbar">
+  <div class="logo">
+    <img src="https://res.cloudinary.com/dke5q7i2l/image/upload/v1754965435/owgxi3g84tmn9ndlhlvb.png" alt="LaceUp Logo" style="height:60px;">
+  </div>
+  <div class="nav-menu">
+    <a href="index.html?tab=all" data-category="all">All</a>
+    <a href="index.html?tab=men" data-category="men">Men</a>
+    <a href="index.html?tab=women" data-category="women">Women</a>
+    <a href="index.html?tab=kids" data-category="kids">Kids</a>
+    <a href="index.html?tab=indian" data-category="indian">Indian</a>
+    <a href="index.html?tab=sustainable" data-category="sustainable">Sustainable</a>
+    <a href="index.html?tab=accessories" data-category="accessories">Accessories</a>
+    <a href="customer-stories.html" aria-current="page">Reviews</a>
+  </div>
+  <div class="nav-right">
+    <a href="#" id="login-link">Login</a>
+    <a href="#" id="signup-link">Signup</a>
+    <div class="cart-icon" id="cart-toggle">🛒 0</div>
+  </div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<div class="container" role="main">
+
+  <section class="stories-hero" aria-labelledby="stories-title">
+    <h1 id="stories-title">Customer Stories</h1>
+    <p>Real sneakerheads. Real purchases. Real experiences. Explore short quotes and in-depth stories from the LaceUp community—covering delivery speed, product authenticity, price transparency, and the joy of finding every brand in one place.</p>
+  </section>
+
+  <section aria-label="Customer stories list">
+    <div class="stories-grid">
+
+      <!-- ===== Short Quote Card ===== -->
+      <article class="story-card" itemscope itemtype="https://schema.org/Review">
+        <div class="story-header">
+          <div class="story-person">
+            <img class="story-avatar" src="https://i.pravatar.cc/80?img=12" alt="Aarav's avatar" />
+            <div class="story-meta">
+              <div class="name" itemprop="author">Aarav</div>
+              <div class="location">Delhi</div>
+            </div>
+          </div>
+          <div class="story-rating" aria-label="5 star rating"><span class="star">★★★★★</span></div>
+        </div>
+        <blockquote class="story-quote" itemprop="reviewBody">
+          “Finally, one platform for every brand. Checkout was smooth and delivery was super quick!”
+        </blockquote>
+        <div class="brand-badges">
+          <span class="badge">Nike</span>
+          <span class="badge">Adidas</span>
+        </div>
+      </article>
+
+      <!-- ===== Short Quote Card ===== -->
+      <article class="story-card" itemscope itemtype="https://schema.org/Review">
+        <div class="story-header">
+          <div class="story-person">
+            <img class="story-avatar" src="https://i.pravatar.cc/80?img=32" alt="Simran's avatar" />
+            <div class="story-meta">
+              <div class="name" itemprop="author">Simran</div>
+              <div class="location">Mumbai</div>
+            </div>
+          </div>
+          <div class="story-rating" aria-label="5 star rating"><span class="star">★★★★★</span></div>
+        </div>
+        <blockquote class="story-quote" itemprop="reviewBody">
+          “Got my dream Jordans at a great price. Customer support was quick to answer sizing questions.”
+        </blockquote>
+        <div class="brand-badges">
+          <span class="badge">Jordan</span>
+          <span class="badge">Air</span>
+        </div>
+      </article>
+
+      <!-- ===== Short Quote Card ===== -->
+      <article class="story-card" itemscope itemtype="https://schema.org/Review">
+        <div class="story-header">
+          <div class="story-person">
+            <img class="story-avatar" src="https://i.pravatar.cc/80?img=5" alt="Karan's avatar" />
+            <div class="story-meta">
+              <div class="name" itemprop="author">Karan</div>
+              <div class="location">Bengaluru</div>
+            </div>
+          </div>
+          <div class="story-rating" aria-label="5 star rating"><span class="star">★★★★★</span></div>
+        </div>
+        <blockquote class="story-quote" itemprop="reviewBody">
+          “No more hopping across sites—LaceUp has everything in one place. Super convenient.”
+        </blockquote>
+        <div class="brand-badges">
+          <span class="badge">Puma</span>
+          <span class="badge">New Balance</span>
+        </div>
+      </article>
+
+      <!-- ===== Longer Story (collapsible) ===== -->
+      <article class="story-card" itemscope itemtype="https://schema.org/Review">
+        <div class="story-header">
+          <div class="story-person">
+            <img class="story-avatar" src="https://i.pravatar.cc/80?img=24" alt="Neha's avatar" />
+            <div class="story-meta">
+              <div class="name" itemprop="author">Neha</div>
+              <div class="location">Pune</div>
+            </div>
+          </div>
+          <div class="story-rating" aria-label="5 star rating"><span class="star">★★★★★</span></div>
+        </div>
+        <details class="story-long">
+          <summary>“Found limited editions that were sold out elsewhere.”</summary>
+          <p itemprop="reviewBody">
+            I track drops constantly and usually hit dead ends. On LaceUp I found a pair I’d been
+            eyeing for months—auth verified, sealed, and delivered earlier than the ETA.
+            Price transparency was clear (no hidden fees), and the order tracking updates were timely.
+            This is my new go-to for rare pairs.
+          </p>
+        </details>
+        <div class="brand-badges">
+          <span class="badge">Yeezy</span>
+          <span class="badge">Asics</span>
+        </div>
+      </article>
+
+      <!-- ===== Longer Story (collapsible) ===== -->
+      <article class="story-card" itemscope itemtype="https://schema.org/Review">
+        <div class="story-header">
+          <div class="story-person">
+            <img class="story-avatar" src="https://i.pravatar.cc/80?img=7" alt="Rohit's avatar" />
+            <div class="story-meta">
+              <div class="name" itemprop="author">Rohit</div>
+              <div class="location">Chandigarh</div>
+            </div>
+          </div>
+          <div class="story-rating" aria-label="5 star rating"><span class="star">★★★★★</span></div>
+        </div>
+        <details class="story-long">
+          <summary>“Verified genuine—fast shipping and great packaging.”</summary>
+          <p itemprop="reviewBody">
+            I’ve been burned by fakes before, so authenticity matters to me.
+            The LaceUp checklist and photos matched perfectly, and the box arrived in pristine shape.
+            The return policy looked fair, but I didn’t need it—fit was true to size.
+          </p>
+        </details>
+        <div class="brand-badges">
+          <span class="badge">Converse</span>
+          <span class="badge">Reebok</span>
+        </div>
+      </article>
+
+      <!-- ===== Short Quote Card ===== -->
+      <article class="story-card" itemscope itemtype="https://schema.org/Review">
+        <div class="story-header">
+          <div class="story-person">
+            <img class="story-avatar" src="https://i.pravatar.cc/80?img=62" alt="Aisha's avatar" />
+            <div class="story-meta">
+              <div class="name" itemprop="author">Aisha</div>
+              <div class="location">Hyderabad</div>
+            </div>
+          </div>
+          <div class="story-rating" aria-label="5 star rating"><span class="star">★★★★★</span></div>
+        </div>
+        <blockquote class="story-quote" itemprop="reviewBody">
+          “Comparing brands and prices was super easy. Accessibility truly improved!”
+        </blockquote>
+        <div class="brand-badges">
+          <span class="badge">Sustainable</span>
+          <span class="badge">Indian Brands</span>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Simple CTA -->
+    <div class="stories-cta">
+      <h3>Got a story to share?</h3>
+      <p>Tell us about your LaceUp experience and help other sneakerheads choose with confidence.</p>
+      <a class="stories-btn" href="contact.html">Share Your Experience</a>
+    </div>
+  </section>
+</div>
+
+<!-- ===== Same language script + Google Translate as other pages ===== -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,hi,ml',
+      autoDisplay: false
+    }, 'dummy_translate_container');
+  }
+  function changeLanguage(lang) {
+    const select = document.querySelector('.goog-te-combo');
+    if (select) { select.value = lang; select.dispatchEvent(new Event('change')); }
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+    const customSelect = document.getElementById("languageSelect");
+    if (customSelect) customSelect.addEventListener("change", (e) => changeLanguage(e.target.value));
+  });
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- ===== FOOTER (reuse exactly as on your site) ===== -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>LaceUp</h3>
+      <p>
+        Premium sneakers for the modern sneakerhead. <br/><br/>
+        A platform sneaker culture knows no borders, where sustainable brands thrive, and where anyone, anywhere, can step into the shoes they’ve always dreamed of.<br/><br/>
+        <i>Together, we lace up for the world.</i>
+      </p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="faq.html">FAQ</a>
+      <a href="customer-stories.html">Customer Stories</a>
+      <a href="#">Return to Top</a>
+    </div>
+    <div class="footer-section">
+      <h4>Follow Us</h4>
+      <p><a href="https://www.instagram.com/letslaceup_official?igsh=MXducXczemc4N3EwcQ==">Instagram</a></p>
+      <p><a href="https://www.linkedin.com/company/108153007">Linkedin</a></p>
+      <p><a href="https://x.com/official_laceup?t=YKIVQP9HsMmCUSSn0iJ1cw&s=08">X</a></p>
+    </div>
+    <div class="footer-section">
+      <h4>Find Us Here</h4>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3494.518449867491!2d76.5396157!3d28.8531935!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d84ddac3da907%3A0x79ac48492e89ec85!2sIndian%20Institute%20Of%20Management%E2%80%93Rohtak%20(IIM%E2%80%93Rohtak)!5e0!3m2!1sen!2sin!4v1754902269621!5m2!1sen!2sin" 
+        width="250" height="200"
+        style="border:0; margin-top: 5px; border-radius: 5px;" 
+        allowfullscreen="" loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2025 LaceUp. All rights reserved.
+  </div>
+</footer>
+
+</body>
+</html>
