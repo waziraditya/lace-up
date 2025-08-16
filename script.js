@@ -838,6 +838,18 @@ function setupShortcuts() {
   });
 }
 
+// Ensure "Reviews" button navigates normally to customer-stories.html
+document.addEventListener("DOMContentLoaded", () => {
+  const reviewsLink = document.querySelector('.nav-menu a[href="customer-stories.html"]');
+  if (reviewsLink) {
+    reviewsLink.addEventListener("click", (e) => {
+      e.stopPropagation();   // prevent other handlers from blocking
+      window.location.href = "customer-stories.html"; // force redirect
+    });
+  }
+});
+
+
 // smooth scroll anchors
 function setupSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
