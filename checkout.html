@@ -13,7 +13,7 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Checkout - Sneakcart</title>
+  <title>Checkout - LaceUp</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -32,7 +32,7 @@
 
   <header class="navbar">
     <div class="logo" onclick="window.location.href='index.html'">
-        <img src="https://res.cloudinary.com/dke5q7i2l/image/upload/v1754965435/owgxi3g84tmn9ndlhlvb.png" alt="Sneakcart Logo" style="height:60px;">
+        <img src="https://res.cloudinary.com/dke5q7i2l/image/upload/v1754965435/owgxi3g84tmn9ndlhlvb.png" alt="LaceUp Logo" style="height:60px;">
     </div>
     <nav class="nav-menu">
       <a href="index.html">Home</a>
@@ -153,7 +153,7 @@
       if (isDirect) {
         orderData = JSON.parse(localStorage.getItem('directCheckout')) || [];
       } else {
-        orderData = JSON.parse(localStorage.getItem('sneakCart')) || [];
+        orderData = JSON.parse(localStorage.getItem('LaceUp')) || [];
       }
       
       if (orderData.length === 0) {
@@ -293,7 +293,7 @@
       localStorage.setItem('orders', JSON.stringify(orders));
       
       // Clear cart
-      localStorage.removeItem('sneakCart');
+      localStorage.removeItem('LaceUp');
       localStorage.removeItem('directCheckout');
       
       alert(`Order placed successfully! Order ID: ${orderDetails.orderId}`);
@@ -358,7 +358,7 @@
 <footer class="footer">
   <div class="footer-content">
     <div class="footer-section">
-      <h3>Sneakcart</h3>
+      <h3>LaceUp</h3>
       <p> 
         Premium sneakers for the modern sneakerhead. <br/><br/>
         A platform sneaker culture knows no borders, where sustainable brands thrive, and where anyone, anywhere, can step into the shoes they’ve always dreamed of.<br/><br/>
@@ -374,14 +374,14 @@
     </div>
     <div class="footer-section">
       <h4>Follow Us</h4>
-      <p> <a href="https://www.instagram.com/letsSneakcart_official?igsh=MXducXczemc4N3EwcQ==">Instagram</a></p>
+      <p> <a href="https://www.instagram.com/letsLaceUp_official?igsh=MXducXczemc4N3EwcQ==">Instagram</a></p>
       <p> <a href="https://www.linkedin.com/company/108153007">Linkedin</a></p>
-      <p> <a href="https://x.com/official_Sneakcart?t=YKIVQP9HsMmCUSSn0iJ1cw&s=08">X</a></p>
+      <p> <a href="https://x.com/official_LaceUp?t=YKIVQP9HsMmCUSSn0iJ1cw&s=08">X</a></p>
     </div>
     </div>
   </div>
   <div class="footer-bottom">
-    &copy; 2025 Sneakcart. All rights reserved.
+    &copy; 2025 LaceUp. All rights reserved.
   </div>
 </footer>
 
