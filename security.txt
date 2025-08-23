@@ -1,4 +1,4 @@
-# security.txt — Security contact information for Lace Up website
+# security.txt — Security contact information for Sneakcart website
 
 Contact: ipm05adityaw@iimrohtak.ac.in
 Expires: 2026-06-15T12:00:00Z
