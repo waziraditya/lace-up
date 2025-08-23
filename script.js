@@ -1,5 +1,5 @@
 // --------------------
-// LaceUp — main script
+// Sneakcart — main script
 // --------------------
 
 // Local state
@@ -900,7 +900,7 @@ function init() {
   setupScrollEffects();
 
   // welcome toast (only on index)
-  if (document.getElementById('all-products')) showToast('Welcome to LaceUp! 👟', 1800);
+  if (document.getElementById('all-products')) showToast('Welcome to Sneakcart! 👟', 1800);
 }
 
 // run init after DOM ready
