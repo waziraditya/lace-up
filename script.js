@@ -1,9 +1,9 @@
 // --------------------
-// Sneakcart — main script
+// LaceUp — main script
 // --------------------
 
 // Local state
-let cart = JSON.parse(localStorage.getItem('sneakCart') || '[]');
+let cart = JSON.parse(localStorage.getItem('LaceUp') || '[]');
 let allSneakers = [];
 let filteredSneakers = [];
 
@@ -346,18 +346,18 @@ const sneakerData = [
 
 // ---------- utility functions ----------
 function loadCartFromStorage() {
-  cart = JSON.parse(localStorage.getItem('sneakCart') || '[]');
+  cart = JSON.parse(localStorage.getItem('LaceUp') || '[]');
 }
 
 function saveCartToStorage() {
-  localStorage.setItem('sneakCart', JSON.stringify(cart));
+  localStorage.setItem('LaceUp', JSON.stringify(cart));
   updateCartCount();
 }
 
 function updateCartCount() {
   const countElem = document.getElementById('cart-count');
   if (countElem) {
-    const cartData = JSON.parse(localStorage.getItem('sneakCart') || '[]');
+    const cartData = JSON.parse(localStorage.getItem('LaceUp') || '[]');
     const totalQty = cartData.reduce((sum, item) => sum + (item.qty || 1), 0);
     countElem.textContent = totalQty;
   }
@@ -900,7 +900,7 @@ function init() {
   setupScrollEffects();
 
   // welcome toast (only on index)
-  if (document.getElementById('all-products')) showToast('Welcome to Sneakcart! 👟', 1800);
+  if (document.getElementById('all-products')) showToast('Welcome to LaceUp! 👟', 1800);
 }
 
 // run init after DOM ready
