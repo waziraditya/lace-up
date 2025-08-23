@@ -1874,7 +1874,7 @@ body {
 
 
 /* ===========================
-   LACEUP OVERRIDES - Styling updates for:
+   Sneakcart OVERRIDES - Styling updates for:
    - 4 product-cards in a row on desktop
    - unified Add-to-Cart button style
    - refined navbar polish
@@ -2042,7 +2042,7 @@ h1.product-title, .product-title { text-align: left !important; margin-left: 0 !
 
 
 
-/* ==== LACEUP OVERRIDES v3: very-evident card hover glow + faster hover transition ====
+/* ==== Sneakcart OVERRIDES v3: very-evident card hover glow + faster hover transition ====
    Applied AFTER previous overrides to ensure the product card glow is pronounced,
    fast, and visually distinct from the background. Glow is applied to the card,
    not to the Add-to-Cart button. =================================================== */
