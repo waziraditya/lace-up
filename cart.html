@@ -14,7 +14,7 @@
 </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Cart - Sneakcart</title>
+  <title>Your Cart - LaceUp</title>
   <link rel="stylesheet" href="styles.css" />
 
 </head>
@@ -34,7 +34,7 @@
 
   <header class="navbar">
     <div class="logo" onclick="window.location.href='index.html'"> 
-      <img src="https://res.cloudinary.com/dke5q7i2l/image/upload/v1754965435/owgxi3g84tmn9ndlhlvb.png" alt="Sneakcart Logo" style="height:60px;">
+      <img src="https://res.cloudinary.com/dke5q7i2l/image/upload/v1754965435/owgxi3g84tmn9ndlhlvb.png" alt="LaceUp Logo" style="height:60px;">
     </div>
     <nav class="nav-menu">
       <a onclick="window.location.href='index.html'">Home</a>
@@ -69,7 +69,7 @@
   </div>
 
   <footer class="footer">
-    <div class="footer-bottom">&copy; 2025 Sneakcart. All rights reserved.</div>
+    <div class="footer-bottom">&copy; 2025 LaceUp. All rights reserved.</div>
   </footer>
 
   <script src="script.js"></script>
@@ -85,7 +85,7 @@
         // Clear direct checkout data after loading
         localStorage.removeItem('directCheckout');
       } else {
-        cartData = JSON.parse(localStorage.getItem('sneakCart')) || [];
+        cartData = JSON.parse(localStorage.getItem('LaceUp')) || [];
       }
       
       const listContainer = document.getElementById('cart-items-list');
@@ -146,7 +146,7 @@
             // For direct checkout, just re-render without saving to cart
             renderCartPage();
           } else {
-            localStorage.setItem('sneakCart', JSON.stringify(cartData));
+            localStorage.setItem('LaceUp', JSON.stringify(cartData));
             // Update cart count after modifying localStorage
             const countElem = document.getElementById('cart-count');
             if (countElem) {
@@ -160,7 +160,7 @@
     }
 
     function proceedToCheckout() {
-      const cartData = JSON.parse(localStorage.getItem('sneakCart')) || [];
+      const cartData = JSON.parse(localStorage.getItem('LaceUp')) || [];
       if (cartData.length === 0) {
         alert('Your cart is empty!');
         return;
